@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instargram</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-slate-50">
+    <div class="flex">
+      <div class="bg-white w-[400px] p-6">
+        <div
+          class="items-center flex-col flex font-mono pb-6 border-b-slate-100 border-b-1"
+        >
+          <img
+            src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+            alt=""
+            class="bg-gray-200 w-16 h-16 rounded-full mb-2"
+          />
+          <p class="font-bold">Mr. Samith</p>
+          <small class="text-gray-400 text-bold text-[10px]"
+            >CEO OF GAME_PM</small
+          >
+          <div class="flex gap-12 mt-4">
+            <div class="text-center">
+              <p class="font-bold">368</p>
+              <p class="text-gray-400 text-xs">Pays</p>
+            </div>
+            <div class="text-center">
+              <p class="font-bold">187k</p>
+              <p class="text-gray-400 text-xs">Follower</p>
+            </div>
+            <div class="text-center">
+              <p class="font-bold">1.04M</p>
+              <p class="text-gray-400 text-xs">Following</p>
+            </div>
+          </div>
+        </div>
+        <div class="border-b-1 border-gray-100">
+          <!-- Middle of container left -->
+          <div
+            class="text-normal font-normal flex-col flex gap-y-1 border-b-1 border-gray-100"
+          >
+            <div
+              class="flex gap-4 items-center p-3 rounded-md hover:bg-gray-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-5 h-5"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z"
+                />
+              </svg>
+              <p class="">Feed</p>
+            </div>
+            <div
+              class="flex gap-4 items-center p-3 rounded-md hover:bg-gray-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-5 h-5"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z"
+                />
+              </svg>
+              <p class="">Explore</p>
+            </div>
+            <div
+              class="flex gap-4 items-center p-3 rounded-md hover:bg-gray-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-5 h-5"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z"
+                />
+              </svg>
+              <p class="">My favorites</p>
+            </div>
+            <div
+              class="flex gap-4 items-center p-3 rounded-md hover:bg-gray-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-5 h-5"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z"
+                />
+              </svg>
+              <p class="">Direct</p>
+            </div>
+            <div
+              class="flex gap-4 items-center p-3 rounded-md hover:bg-gray-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-5 h-5"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z"
+                />
+              </svg>
+              <p class="">Stats</p>
+            </div>
+            <div
+              class="flex gap-4 items-center p-3 rounded-md hover:bg-gray-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-5 h-5"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z"
+                />
+              </svg>
+              <p class="">Settings</p>
+            </div>
+          </div>
+          <!-- left side bar botton -->
+          <div class="flex flex-col items-start p-3 gap-y-4">
+            <!-- contact section -->
+            <p class="">Contact</p>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center flex-col">
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt=""
+                  class="border-none w-10 h-10 rounded-full"
+                />
+              </div>
+              <div class=" ">
+                <p class="font-normal">Visal Hoster</p>
+                <p class="text-[9px] text-gray-200">King of Web Developer</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="">
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg   "
+                  alt=""
+                  class="border-none w-10 h-10 rounded-full"
+                />
+              </div>
+              <div class="">
+                <p class="font-normal">Mr. Samith Smos</p>
+                <p class="text-[9px] text-gray-200">Never Lost Hope</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="">
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt=""
+                  class="border-none w-10 h-10 rounded-full"
+                />
+              </div>
+              <div class="">
+                <p class="font-normal">Reach TopUp</p>
+                <p class="text-[9px] text-gray-200">Never Lost Hope</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="">
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt=""
+                  class="border-none w-10 h-10 rounded-full"
+                />
+              </div>
+              <div class="">
+                <p class="font-normal">SyyNoun</p>
+                <p class="text-[9px] text-gray-200">Never Lost Hope</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="">
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt=""
+                  class="border-none w-10 h-10 rounded-full"
+                />
+              </div>
+              <div class="">
+                <p class="font-normal">Ou Savry</p>
+                <p class="text-[9px] text-gray-200">Never Lost Hope</p>
+              </div>
+            </div>
+            <div
+              class="lastest_barSide justify-center bg-white w-[350px] align-bottom justify-endp-5 h-16 rounded-md flex items-center"
+            >
+              <p class="text-blue-500 font-bold">View All</p>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class=""></div>
+          <div class=""></div>
+        </div>
+      </div>
+
+      <!-- Center Path -->
+      <div class="flex-col flex-1 block justify-center items-center w-full p-6">
+        <div
+          class="container_middle_top h-30 flex justify-between items-center"
+        >
+          <div
+            class="flex h-[55p] gap-4 items-center p-3 border-gray-200 rounded-2xl border-1 w-[270px]"
+          >
+            <svg
+              class="w-6 h-6"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 640"
+            >
+              <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+              <path
+                d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"
+              />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search....."
+              class="w-24 outline-none bg-transparent flex-1"
+            />
+
+            <svg
+              class="w-5 h-5 gap-11"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 640"
+            >
+              <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+              <path
+                d="M320 64C267 64 224 107 224 160L224 288C224 341 267 384 320 384C373 384 416 341 416 288L416 160C416 107 373 64 320 64zM176 248C176 234.7 165.3 224 152 224C138.7 224 128 234.7 128 248L128 288C128 385.9 201.3 466.7 296 478.5L296 528L248 528C234.7 528 224 538.7 224 552C224 565.3 234.7 576 248 576L392 576C405.3 576 416 565.3 416 552C416 538.7 405.3 528 392 528L344 528L344 478.5C438.7 466.7 512 385.9 512 288L512 248C512 234.7 501.3 224 488 224C474.7 224 464 234.7 464 248L464 288C464 367.5 399.5 432 320 432C240.5 432 176 367.5 176 288L176 248z"
+              />
+            </svg>
+          </div>
+          <div class="end-top-middle items-end flex flex-col">
+            <div
+              class="flex bg-gradient-to-bl from-violet-500 to-fuchsia-500 gap-4 h-[55px] p-2 gra rounded-2xl border-none w-[175px] justify-center items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6 text-white"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+
+              <p class="font-bold text-[14px] text-white">Create New Post</p>
+            </div>
+          </div>
+        </div>
+        <div class="under_top_middle flex justify-between items-center mb-2">
+          <div class="flex items-center text-[30px] font-bold">Stories</div>
+          <div class="justify-center text-blue-500">Watch All</div>
+        </div>
+        <div class="stories_bar flex flex-row items-center gap-5">
+          <div class="flex flex-col justify-center items-center">
+            <div
+              class="image bg-gray-100 items-center flex justify-center w-14 h-14 rounded-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+            </div>
+            <div class="flex items-center justify-center">
+              <p class="font-bold text-gray-300 text-[11px]">Add Story</p>
+            </div>
+          </div>
+          <!-- 2 -->
+          <div class="flex flex-col justify-center items-center">
+            <div
+              class="p-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+            >
+              <div
+                class="w-16 h-16 bg-white rounded-full flex items-center justify-center"
+              >
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt="Avatar"
+                  class="w-full h-full rounded-full object-cover p-1"
+                />
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <p class="font-bold text-gray-300 text-[11px]">Add Story</p>
+            </div>
+          </div>
+          <!-- 3 -->
+          <div class="flex flex-col justify-center items-center">
+            <div
+              class="p-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+            >
+              <div
+                class="w-16 h-16 bg-white rounded-full flex items-center justify-center"
+              >
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt="Avatar"
+                  class="w-full h-full rounded-full object-cover p-1"
+                />
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <p class="font-bold text-gray-300 text-[11px]">Add Story</p>
+            </div>
+          </div>
+          <!-- 4 -->
+          <div class="flex flex-col justify-center items-center">
+            <div
+              class="p-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+            >
+              <div
+                class="w-16 h-16 bg-white rounded-full flex items-center justify-center"
+              >
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt="Avatar"
+                  class="w-full h-full rounded-full object-cover p-1"
+                />
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <p class="font-bold text-gray-300 text-[11px]">Add Story</p>
+            </div>
+          </div>
+          <!-- 5 -->
+          <div class="flex flex-col justify-center items-center">
+            <div
+              class="p-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+            >
+              <div
+                class="w-16 h-16 bg-white rounded-full flex items-center justify-center"
+              >
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt="Avatar"
+                  class="w-full h-full rounded-full object-cover p-1"
+                />
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <p class="font-bold text-gray-300 text-[11px]">Add Story</p>
+            </div>
+          </div>
+        </div>
+        <!-- 6 -->
+        <div
+          class="flex flex-row gap-6 justify-between items-center w-full mt-5"
+        >
+          <div class="">
+            <h3 class="font-bold text-[20px]">Feeds</h3>
+          </div>
+
+          <div class="flex items-center gap-4 flex-row">
+            <div
+              class="border-none bg-blue-400 w-[100px] p-2 rounded-md text-white flex items-center justify-center"
+            >
+              <p class="">Popular</p>
+            </div>
+            <div
+              class="flex justify-center items-center p-2 bg-slate-100 rounded-md"
+            >
+              <p class="font-bold">Lastest</p>
+            </div>
+          </div>
+        </div>
+        <!-- post container box -->
+        <!-- <div
+          class="bg-white w-full mt-2 shadow-lg rounded-sm py-[15rem] relative "
+        >
+          <div class="bg-black w-full p-2 absolute top-0 left-0 flex gap-1 justify-between items-center">
+            <img
+              src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+              alt=""
+              class="border-none w-11 h-11 rounded-full"
+            />
+            <div
+              class="container-text  "
+            >
+              <p class="font-bold text-white">Mr. Robert</p>
+              <p class="text-sm text-gray-300">@robertsoun219</p>
+            </div>
+            <div class="logo flex justify-center items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="{1.5}"
+                stroke="currentColor"
+                className="size-6"
+                class="h-6 w-6 bg-green-300"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="post-container shadow-md">
+          <!-- Profile Post Container -->
+          <div
+            class="profile-post-container flex justify-between items-center p-3"
+          >
+            <!-- left side post container -->
+            <div class="flex items-center gap-3">
+              <div class="">
+                <img
+                  src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                  alt=""
+                  class="w-12 h-12 rounded-full border-none"
+                />
+              </div>
+              <div class="">
+                <h3 class="font-bold text-gray-800">Mr. Robert</h3>
+                <p class="text-sm text-gray-500">@robertsoun219</p>
+              </div>
+            </div>
+            <!-- Right side post container -->
+            <div class="">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6 h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <!-- picture post container -->
+          <div class="picture-post-container w-full flex flex=col gap-2 pt-0">
+            <div class="box-shadow p-6 rounded-md ">
+              <img
+                src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                alt=""
+                class="h-full object-cover rounded-2xl"
+              />
+            </div>
+            <!-- <img
+                src="pexels-natalie-goodwin-2148267387-33563161.jpg"
+                alt=""
+                class="w-full h-full object-cover p-2 rounded-md"
+              /> -->
+            <div class="grid grid-cols-2 gap-2 ">
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-base"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-base"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-base"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  class="h-auto max-w-full rounded-base"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Bar of Post Like, Comment, Share -->
+          <div
+            class="post-include- w-full flex justify-between items-center px-12"
+          >
+            <div
+              class="left-side-like flex items-center gap-1 pb-3 pt-0 justify-center"
+            >
+              <div class="like">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6 h-7 w-7 text-red-500"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                  />
+                </svg>
+              </div>
+              <div class="num-like">123 likes</div>
+              <div class="message px-0 gap-0 pl-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6 h-7 w-7 text-gray-500 font-bold"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
+                  />
+                </svg>
+              </div>
+              <div class="num-like p-0">123 likes</div>
+              <div class="send">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6 h-7 w-7 text-gray-500 font-bold"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="Right-like">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="{1.5}"
+                stroke="currentColor"
+                className="size-6"
+                class="w-8 text-gray-400 h-10 pb-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white w-[400px] h-screen"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Shop</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <!-- Main Container -->
+     <div class="Main w-full h-screen flex flex-col items-center justify-center">
+        <!-- Header -->
+        <header class="w-full h-16 bg-gray-800 text-white flex items-center justify-center">
+            <h1 class="text-2xl font-bold">Device Shop</h1>
+        </header>
+
+        <!-- Product List -->
+        <main class="w-full flex-1 p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Product Card -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <img src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg" alt="Device Image" class="w-full h-40 object-cover mb-4">
+                <h2 class="text-xl font-semibold mb-2">Device Name</h2>
+                <p class="text-gray-600 mb-4">$199.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">Add to Cart</button>
+            </div>
+            <!-- Repeat Product Card as needed -->
+              <div class="bg-white shadow-md rounded-lg p-4">
+                <img src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg " alt="Device Image" class="h-40 w-full object-cover">
+                <h2 class="text-xl font-semibold mb-2">Device Name</h2>
+                <p class="text-gray-600 mb-4">$199.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">Add to Cart</button>
+            </div>
+              <div class="bg-white shadow-md rounded-lg p-4">
+                <img src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg" alt="Device Image" class="w-full h-40 object-cover mb-4">
+                <h2 class="text-xl font-semibold mb-2">Device Name</h2>
+                <p class="text-gray-600 mb-4">$199.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-colors ">Add to Cart</button>
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full h-16 bg-gray-800 text-white flex items-center justify-center">
+            <p>&copy; 2024 Device Shop. All rights reserved.</p>
+            <p>&copy; Made by Mr. Samith</p>
+        </footer>
+
+     </div>
+</body>
+</html>

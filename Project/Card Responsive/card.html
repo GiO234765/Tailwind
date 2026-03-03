@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <script src="script.js"></script>
+    <header
+      class="w-full bg-slate-400 p-4 fixed flex justify-between items-center"
+    >
+      <!-- Logo -->
+      <h1 class="text-2xl font-bold">Card Responsive</h1>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-4 items-center">
+        <div class="px-7 py-1 hover:bg-slate-300 cursor-pointer rounded-full">
+          Home
+        </div>
+        <div class="px-7 py-1 hover:bg-slate-300 cursor-pointer rounded-full">
+          More
+        </div>
+        <div class="px-7 py-1 hover:bg-slate-300 cursor-pointer rounded-full">
+          Donates
+        </div>
+        <div class="px-7 py-1 hover:bg-slate-300 cursor-pointer rounded-full">
+          Contact
+        </div>
+      </div>
+
+      <!-- Hamburger Button (Mobile Only) -->
+      <button id="menu-btn" class="md:hidden text-3xl">☰</button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden fixed top-20 right-4 bg-slate-400 p-4 rounded-lg shadow-lg flex flex-col gap-3"
+    >
+      <div class="px-4 py-2 hover:bg-slate-300 rounded cursor-pointer">
+        Home
+      </div>
+      <div class="px-4 py-2 hover:bg-slate-300 rounded cursor-pointer">
+        More
+      </div>
+      <div class="px-4 py-2 hover:bg-slate-300 rounded cursor-pointer">
+        Donates
+      </div>
+      <div class="px-4 py-2 hover:bg-slate-300 rounded cursor-pointer">
+        Contact
+      </div>
+    </div>
+    <!-- Grid Gallery Items -->
+    <div
+      class="w-full grid p-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pt-28"
+    >
+      <!-- 1 -->
+      <div class="card bg-white shadow-md rounded-lg p-4 w-full">
+        <img
+          src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg"
+          alt="Card Image"
+          class="w-full h-40 object-cover mb-4"
+        />
+        <h2 class="text-xl font-semibold mb-2">Card Title</h2>
+        <p class="text-gray-600 mb-4">
+          This is a description of the card content. It provides more details
+          about the item.
+        </p>
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-1s"
+        >
+          Learn More
+        </button>
+      </div>
+      <!-- 2 -->
+      <div class="card bg-white shadow-md rounded-lg p-4 w-full">
+        <img
+          src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg"
+          alt="Card Image"
+          class="w-full h-40 object-cover mb-4"
+        />
+        <h2 class="text-xl font-semibold mb-2">Card Title</h2>
+        <p class="text-gray-600 mb-4">
+          This is a description of the card content. It provides more details
+          about the item.
+        </p>
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-1s"
+        >
+          Learn More
+        </button>
+      </div>
+      <div class="card bg-white shadow-md rounded-lg p-4 w-full">
+        <img
+          src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg"
+          alt="Card Image"
+          class="w-full h-40 object-cover mb-4"
+        />
+        <h2 class="text-xl font-semibold mb-2">Card Title</h2>
+        <p class="text-gray-600 mb-4">
+          This is a description of the card content. It provides more details
+          about the item.
+        </p>
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-1s"
+        >
+          Learn More
+        </button>
+      </div>
+      <div class="card bg-white shadow-md rounded-lg p-4 w-full">
+        <img
+          src="/Project/ig/pexels-natalie-goodwin-2148267387-33563161.jpg"
+          alt="Card Image"
+          class="w-full h-40 object-cover mb-4"
+        />
+        <h2 class="text-xl font-semibold mb-2">Card Title</h2>
+        <p class="text-gray-600 mb-4">
+          This is a description of the card content. It provides more details
+          about the item.
+        </p>
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-1s"
+        >
+          Learn More
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
