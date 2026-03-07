@@ -4,22 +4,131 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grid Gallery</title>
-    <link rel="stylesheet" href="../../dist/tailwind.css" />
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body class="p-16 dark:bg-gray-900">
-    <!-- Main Container -->
+
+  <body class="p-16 bg-gray-900">
+    <!-- Grid Container -->
     <div
-      class="grid-container grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4 p-2 shadow-md bg-pink-300"
+      class="grid w-full p-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"
     >
+      <!-- CARD 1 -->
       <div
-        class="container-image card-1 w-full shadow-md rounded-sm bg-pink-400 p-4 flex flex-row items-start  py-30"
-      > 
-       <div class="image w-full ">
-        <img src="pexels-lkloeppel-2416576.jpg" alt="Sample Image" class="h-8 w-8 object-cover rounded-full">
-       </div>
+        class="relative xl:col-span-2 md:col-span-2 overflow-hidden rounded-lg"
+      >
+        <img
+          src="pexels-lkloeppel-2416576.jpg"
+          class="w-full h-72 object-cover"
+        />
+
+        <!-- Profile -->
+        <div class="absolute top-3 left-3 flex items-center gap-3 z-20">
+          <img
+            src="pexels-julia-volk-5769435.jpg"
+            class="h-9 w-9 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="text-sm font-medium text-white">Mun Samith</div>
+            <div class="text-xs text-gray-300">@Photographer_kh</div>
+          </div>
+        </div>
+
+        <!-- Center Text -->
+        <div
+          class="absolute inset-0 flex items-center justify-center p-6 text-center z-10"
+        >
+          <p class="text-white text-sm max-w-md">
+            Mr. Samith is always dream about a girl who has a beautiful smile and a good heart. He is looking for her in every corner of the world, hoping to find her one day.
+            And one day, he finally found her in Siem Reap, Cambodia. Her name is S######a.
+          </p>
+        </div>
       </div>
-       
+
+      <!-- CARD 2 -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img
+          src="pexels-julia-volk-5769435.jpg"
+          class="w-full h-72 object-cover"
+        />
+
+        <div class="absolute top-3 left-3 flex items-center gap-3">
+          <img
+            src="pexels-julia-volk-5769435.jpg"
+            class="h-9 w-9 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="text-sm font-medium text-white">Mun Samith</div>
+            <div class="text-xs text-gray-300">@Photographer_kh</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 (ROW SPAN) -->
+      <div
+        class="relative row-span-2 md:row-span-2 xl:row-span-2 overflow-hidden rounded-lg"
+      >
+        <img
+          src="pexels-lkloeppel-2416576.jpg"
+          class="w-full h-full object-cover"
+        />
+
+        <div class="absolute top-3 left-3 flex items-center gap-3">
+          <img
+            src="pexels-julia-volk-5769435.jpg"
+            class="h-9 w-9 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="text-sm font-medium text-white">Mun Samith</div>
+            <div class="text-xs text-gray-300">@Photographer_kh</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img
+          src="pexels-julia-volk-5769435.jpg"
+          class="w-full h-72 object-cover"
+        />
+
+        <div class="absolute top-3 left-3 flex items-center gap-3">
+          <img
+            src="pexels-julia-volk-5769435.jpg"
+            class="h-9 w-9 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="text-sm font-medium text-white">Mun Samith</div>
+            <div class="text-xs text-gray-300">@Photographer_kh</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div
+        class="relative xl:col-span-2 md:col-span-2 overflow-hidden rounded-lg"
+      >
+        <img
+          src="pexels-julia-volk-5769435.jpg"
+          class="w-full h-72 object-cover"
+        />
+
+        <div class="absolute top-3 left-3 flex items-center gap-3">
+          <img
+            src="pexels-julia-volk-5769435.jpg"
+            class="h-9 w-9 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="text-sm font-medium text-white">Mun Samith</div>
+            <div class="text-xs text-gray-300">@Photographer_kh</div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
