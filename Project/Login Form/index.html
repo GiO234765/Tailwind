@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalStorage + Tailwind Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body class="p-8 space-y-8">
+    <!-- Form -->
+    <form class="form p-6 rounded border max-w-md space-y-3">
+      <h2 class="font-bold text-lg">Fill With Your Full Name</h2>
+      <input
+        type="text"
+        class="p-2 bg-slate-200 font-bold rounded w-full"
+        placeholder="Full name"
+        id="getFullname"
+      />
+
+      <h2 class="font-bold mt-4 text-lg">Fill With Your Email Address</h2>
+      <input
+        type="text"
+        class="p-2 bg-slate-200 font-bold rounded w-full"
+        placeholder="123@gmail.com"
+        id="getEmail"
+      />
+
+      <div class="flex gap-3 pt-2">
+        <button
+          type="button"
+          class="border px-3 py-1 rounded hover:bg-slate-100"
+          onclick="store()"
+        >
+          Submit
+        </button>
+
+        <button
+          type="button"
+          class="border px-3 py-1 rounded hover:bg-slate-100"
+          onclick="clearData()"
+        >
+          Clear
+        </button>
+      </div>
+    </form>
+
+    <!-- Output Table -->
+    <table class="w-full max-w-xl border border-gray-400 rounded overflow-hidden">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="text-left p-2 border-b border-gray-300">Name</th>
+          <th class="text-left p-2 border-b border-gray-300">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="outputName" class="p-2 border-t border-gray-200"></td>
+          <td id="outputEmail" class="p-2 border-t border-gray-200"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Load JS LAST -->
+    <script src="localStorage.js"></script>
+  </body>
+</html>

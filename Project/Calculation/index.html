@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculator</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-700 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-sm">
+    <!-- Calculator Card -->
+    <div class="bg-gray-900 text-white rounded-2xl shadow-2xl overflow-hidden">
+      <!-- Display -->
+      <div class="p-5 bg-gray-800">
+        <div id="history" class="text-gray-400 text-sm min-h-[20px] overflow-x-auto whitespace-nowrap"></div>
+        <div id="display" class="text-right text-3xl font-mono mt-2 min-h-[44px] overflow-x-auto whitespace-nowrap">0</div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="grid grid-cols-4 gap-2 p-4">
+        <!-- Row 1 -->
+        <button class="btn-secondary" data-action="clear">C</button>
+        <button class="btn-secondary" data-action="delete">⌫</button>
+        <button class="btn-secondary" data-value="%">%</button>
+        <button class="btn-accent" data-value="÷">÷</button>
+
+        <!-- Row 2 -->
+        <button class="btn" data-value="7">7</button>
+        <button class="btn" data-value="8">8</button>
+        <button class="btn" data-value="9">9</button>
+        <button class="btn-accent" data-value="×">×</button>
+
+        <!-- Row 3 -->
+        <button class="btn" data-value="4">4</button>
+        <button class="btn" data-value="5">5</button>
+        <button class="btn" data-value="6">6</button>
+        <button class="btn-accent" data-value="-">−</button>
+
+        <!-- Row 4 -->
+        <button class="btn" data-value="1">1</button>
+        <button class="btn" data-value="2">2</button>
+        <button class="btn" data-value="3">3</button>
+        <button class="btn-accent" data-value="+">+</button>
+
+        <!-- Row 5 -->
+        <button class="btn" data-value="(">(</button>
+        <button class="btn" data-value="0">0</button>
+        <button class="btn" data-value=")">)</button>
+        <button class="btn-equal col-span-1" data-action="equals">=</button>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-4 pb-4 -mt-2 grid grid-cols-2 gap-2">
+        <button class="btn" data-value=".">.</button>
+        <button class="btn-secondary" data-action="save">💾 Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tailwind component classes
+    const addBtnStyles = () => {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .btn {
+          @apply bg-gray-700 hover:bg-gray-600 active:bg-gray-500 text-white rounded-xl py-3 text-xl transition-colors;
+        }
+        .btn-secondary {
+          @apply bg-gray-600 hover:bg-gray-500 active:bg-gray-400 text-white rounded-xl py-3 text-xl transition-colors;
+        }
+        .btn-accent {
+          @apply bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-400 text-white rounded-xl py-3 text-xl transition-colors;
+        }
+        .btn-equal {
+          @apply bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-400 text-white rounded-xl py-3 text-xl transition-colors;
+        }
+      `;
+      document.head.appendChild(style);
+    };
+    addBtnStyles();
+
+    // Storage keys
+    const KEY_EXPR = "calc_expr";
+    const KEY_RESULT = "calc_result";
+
+    // Elements
+    const displayEl = document.getElementById("display");
+    const historyEl = document.getElementById("history");
+    const btns = document.querySelectorAll("button[data-value], button[data-action]");
+
+    // State
+    let expression = "";
+    let result = "";
+
+    // Load from localStorage on start
+    window.addEventListener("DOMContentLoaded", () => {
+      expression = localStorage.getItem(KEY_EXPR) || "";
+      result = localStorage.getItem(KEY_RESULT) || "";
+      render();
+    });
+
+    // Helpers
+    function render() {
+      displayEl.textContent = expression || "0";
+      historyEl.textContent = result ? `= ${result}` : "";
+    }
+
+    function append(val) {
+      // Simple guard: prevent starting with operator (except minus or parenthesis)
+      if (!expression && /[+\/*×÷%)]/.test(val)) return;
+      // Prevent multiple decimals in a number segment
+      if (val === ".") {
+        const lastToken = expression.split(/[^0-9.]/).pop();
+        if (lastToken.includes(".")) return;
+      }
+      expression += val;
+      render();
+    }
+
+    function clearAll() {
+      expression = "";
+      result = "";
+      render();
+    }
+
+    function deleteOne() {
+      expression = expression.slice(0, -1);
+      render();
+    }
+
+    // Convert human symbols to JS-safe expression
+    function toSafeEval(expr) {
+      return expr
+        .replace(/×/g, "*")
+        .replace(/÷/g, "/")
+        // Convert percentage: "50%" -> (50/100)
+        .replace(/(\d+(\.\d+)?)%/g, "($1/100)");
+    }
+
+    function safeEvaluate() {
+      if (!expression) return;
+      try {
+        const jsExpr = toSafeEval(expression);
+        // Extra safety: only allow numbers, operators, dots, parentheses, and spaces
+        if (!/^[0-9+\-*/().\s]+$/.test(jsExpr)) throw new Error("Invalid characters");
+        const val = Function(`"use strict"; return (${jsExpr})`)();
+        if (!isFinite(val)) throw new Error("Math error");
+        result = String(val);
+        // After equals, set expression to result (typical calculator behavior)
+        expression = result;
+        render();
+      } catch (e) {
+        result = "Error";
+        render();
+        // Briefly show error then keep current expression
+        setTimeout(() => {
+          result = "";
+          render();
+        }, 900);
+      }
+    }
+
+    function saveToStorage() {
+      localStorage.setItem(KEY_EXPR, expression);
+      localStorage.setItem(KEY_RESULT, result);
+      // Quick visual feedback
+      historyEl.textContent = "💾 raved";
+      setTimeout(render, 700);
+      console.log("Saved to localStorage:", { expression, result });
+    }
+
+    // Attach events using forEach (as requested)
+    btns.forEach((btn) => {
+      const val = btn.getAttribute("data-value");
+      const action = btn.getAttribute("data-action");
+
+      if (val) {
+        btn.addEventListener("click", () => append(val));
+      }
+
+      if (action === "clear") {
+        btn.addEventListener("click", clearAll);
+      } else if (action === "delete") {
+        btn.addEventListener("click", deleteOne);
+      } else if (action === "equals") {
+        btn.addEventListener("click", safeEvaluate);
+      } else if (action === "save") {
+        btn.addEventListener("click", saveToStorage);
+      }
+    });
+
+    // Keyboard support
+    window.addEventListener("keydown", (e) => {
+      const k = e.key;
+
+      if (/\d/.test(k)) {
+        append(k);
+      } else if ("+-*/().".includes(k)) {
+        append(k === "*" ? "×" : k === "/" ? "÷" : k);
+      } else if (k === "Enter" || k === "=") {
+        e.preventDefault();
+        safeEvaluate();
+      } else if (k === "Backspace") {
+        deleteOne();
+      } else if (k === "Escape") {
+        clearAll();
+      } else if (k === "%") {
+        append("%");
+      }
+    });
+  </script>
+</body>
+</html>
+        
