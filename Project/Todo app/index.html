@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Advanced Todo (LocalStorage)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #f7f7fb;
+        --card: #ffffff;
+        --text: #222;
+        --muted: #666;
+        --primary: #4f46e5;
+        --danger: #ef4444;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --border: #e5e7eb;
+      }
+      .dark {
+        --bg: #0f1220;
+        --card: #171a2a;
+        --text: #e6e6f0;
+        --muted: #a9acc7;
+        --primary: #8b5cf6;
+        --danger: #f87171;
+        --success: #34d399;
+        --warning: #fbbf24;
+        --border: #2a2f45;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          "Helvetica Neue",
+          Arial;
+        background: var(--bg);
+        color: var(--text);
+        transition:
+          background 0.25s,
+          color 0.25s;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 16px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: 26px;
+        margin: 0;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr auto;
+        gap: 10px;
+        background: var(--card);
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+      }
+
+      input,
+      select,
+      button,
+      textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+      }
+      textarea {
+        resize: vertical;
+        min-height: 40px;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        transition:
+          transform 0.05s ease,
+          opacity 0.2s ease;
+      }
+      button:hover {
+        opacity: 0.95;
+      }
+      button:active {
+        transform: translateY(1px);
+      }
+
+      .toolbar {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: 1fr 150px 180px auto;
+        gap: 10px;
+      }
+      .ghost-btn {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .list {
+        margin-top: 18px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .left {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .check {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        margin-top: 4px;
+      }
+
+      .content {
+        display: grid;
+        gap: 4px;
+      }
+
+      .title {
+        font-weight: 600;
+        word-break: break-word;
+      }
+      .desc {
+        color: var(--muted);
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+
+      .meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+      }
+      .badge.deadline-soon {
+        border-color: var(--warning);
+        color: var(--warning);
+      }
+      .badge.deadline-over {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .badge.done {
+        border-color: var(--success);
+        color: var(--success);
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .icon-btn {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 8px 10px;
+      }
+      .icon-btn.del {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .icon-btn.save {
+        border-color: var(--success);
+        color: var(--success);
+      }
+      .icon-btn.cancel {
+        border-color: var(--muted);
+        color: var(--muted);
+      }
+
+      .completed .title {
+        text-decoration: line-through;
+        opacity: 0.7;
+      }
+      .empty {
+        text-align: center;
+        color: var(--muted);
+        padding: 24px;
+        border: 1px dashed var(--border);
+        border-radius: 12px;
+        background: var(--card);
+      }
+
+      .footer {
+        margin: 26px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 820px) {
+        .controls {
+          grid-template-columns: 1fr;
+        }
+        .toolbar {
+          grid-template-columns: 1fr 1fr;
+        }
+        .toolbar > :nth-child(3) {
+          grid-column: 1 / -1;
+        }
+        .toolbar > :nth-child(4) {
+          grid-column: 1 / -1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>📝 My Todo — LocalStorage</h1>
+        <button id="toggleTheme" class="ghost-btn">🌙 Toggle Dark Mode</button>
+      </div>
+
+      <!-- Create Form -->
+      <div class="controls">
+        <input
+          id="titleInput"
+          type="text"
+          placeholder="Task tittle.."
+        />
+        <input id="deadlineInput" type="date" />
+        <select id="categoryInput">
+          <option value="">— Category —</option>
+          <option value="Study">Study</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Shopping">Shopping</option>
+        </select>
+        <input id="tagInput" type="text" placeholder="Tag (ឧ. urgent, home)" />
+        <button id="addBtn">Add Todo</button>
+        <textarea
+          id="descInput"
+          placeholder="ពណ៌នាខ្លីៗ (ស្រេចចិត្ត)"
+        ></textarea>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="ស្វែងរកតាមចំណងជើង/ពណ៌នា…"
+        />
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="open">Open</option>
+          <option value="done">Done</option>
+          <option value="overdue">Overdue</option>
+          <option value="today">Due Today</option>
+        </select>
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="Study">Study</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Shopping">Shopping</option>
+        </select>
+        <div style="display: flex; gap: 8px">
+          <button id="clearDone" class="ghost-btn">Clear Done</button>
+          <button id="exportBtn" class="ghost-btn">Export JSON</button>
+          <button id="importBtn" class="ghost-btn">Import JSON</button>
+          <input
+            id="fileInput"
+            type="file"
+            accept="application/json"
+            style="display: none"
+          />
+        </div>
+      </div>
+
+      <!-- List -->
+      <div id="todoList" class="list"></div>
+
+      <div class="footer">
+        <div id="countInfo">0 items</div>
+        <button id="clearAll" class="ghost-btn">Clear All</button>
+      </div>
+    </div>
+
+    <script>
+      // ======= State & Storage =======
+      const LS_KEY = "advanced_todos_v2";
+      const THEME_KEY = "theme_mode";
+
+      /** @type {Array<{id:string,title:string,desc:string,deadline:string,category:string,tags:string[],done:boolean,created:number}>} */
+      let todos = [];
+
+      // Load theme and todos
+      function loadInitial() {
+        const mode = localStorage.getItem(THEME_KEY) || "light";
+        if (mode === "dark") document.body.classList.add("dark");
+
+        const raw = localStorage.getItem(LS_KEY);
+        if (raw) {
+          try {
+            todos = JSON.parse(raw);
+          } catch {
+            todos = [];
+          }
+        }
+        render();
+      }
+
+      function save() {
+        localStorage.setItem(LS_KEY, JSON.stringify(todos));
+      }
+
+      // ======= Helpers =======
+      const $ = (s) => document.querySelector(s);
+
+      function uid() {
+        return (
+          Math.random().toString(36).slice(2, 9) +
+          Date.now().toString(36).slice(-4)
+        );
+      }
+
+      function fmtDateStr(d) {
+        if (!d) return "";
+        const dt = new Date(d + "T00:00:00");
+        return dt.toLocaleDateString();
+      }
+
+      function isToday(dStr) {
+        if (!dStr) return false;
+        const d = new Date(dStr + "T00:00:00");
+        const n = new Date();
+        return (
+          d.getFullYear() === n.getFullYear() &&
+          d.getMonth() === n.getMonth() &&
+          d.getDate() === n.getDate()
+        );
+      }
+
+      function isOverdue(dStr) {
+        if (!dStr) return false;
+        const end = new Date(dStr + "T23:59:59");
+        const now = new Date();
+        return end < now;
+      }
+
+      function deadlineBadgeClass(dStr, done) {
+        if (done) return "done";
+        if (!dStr) return "";
+        if (isOverdue(dStr)) return "deadline-over";
+        if (isToday(dStr)) return "deadline-soon";
+        return "";
+      }
+
+      // ======= CRUD =======
+      function addTodo() {
+        const title = $("#titleInput").value.trim();
+        if (!title) return;
+
+        const desc = $("#descInput").value.trim();
+        const deadline = $("#deadlineInput").value; // yyyy-mm-dd
+        const category = $("#categoryInput").value;
+        const tagsRaw = $("#tagInput").value.trim();
+        const tags = tagsRaw
+          ? tagsRaw
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean)
+          : [];
+
+        todos.unshift({
+          id: uid(),
+          title,
+          desc,
+          deadline,
+          category,
+          tags,
+          done: false,
+          created: Date.now(),
+        });
+
+        // Clear input
+        $("#titleInput").value = "";
+        $("#descInput").value = "";
+        $("#deadlineInput").value = "";
+        $("#categoryInput").value = "";
+        $("#tagInput").value = "";
+
+        save();
+        render();
+      }
+
+      function toggleDone(id) {
+        const t = todos.find((x) => x.id === id);
+        if (t) {
+          t.done = !t.done;
+          save();
+          render();
+        }
+      }
+
+      function deleteTodo(id) {
+        todos = todos.filter((x) => x.id !== id);
+        save();
+        render();
+      }
+
+      // Inline edit
+      function startEdit(id) {
+        const row = document.querySelector(`[data-id="${id}"]`);
+        const t = todos.find((x) => x.id === id);
+        if (!row || !t) return;
+
+        // Replace content area with editable fields
+        const content = row.querySelector(".content");
+        const actions = row.querySelector(".actions");
+
+        content.innerHTML = `
+        <input id="editTitle" value="${escapeHtml(t.title)}" />
+        <textarea id="editDesc" placeholder="ពណ៌នា (ស្រេចចិត្ត)">${escapeHtml(t.desc || "")}</textarea>
+        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
+          <input id="editDeadline" type="date" value="${t.deadline || ""}" />
+          <select id="editCategory">
+            <option value="">— Category —</option>
+            ${["Study", "Work", "Personal", "Shopping"].map((c) => `<option value="${c}" ${t.category === c ? "selected" : ""}>${c}</option>`).join("")}
+          </select>
+          <input id="editTags" placeholder="tag1, tag2" value="${escapeHtml((t.tags || []).join(", "))}" />
+        </div>
+      `;
+
+        actions.innerHTML = `
+        <button class="icon-btn save" onclick="saveEdit('${id}')">💾 Save</button>
+        <button class="icon-btn cancel" onclick="render()">✖ Cancel</button>
+      `;
+      }
+
+      function saveEdit(id) {
+        const row = document.querySelector(`[data-id="${id}"]`);
+        const t = todos.find((x) => x.id === id);
+        if (!row || !t) return;
+
+        const title = row.querySelector("#editTitle").value.trim();
+        if (!title) return;
+        const desc = row.querySelector("#editDesc").value.trim();
+        const deadline = row.querySelector("#editDeadline").value;
+        const category = row.querySelector("#editCategory").value;
+        const tagsRaw = row.querySelector("#editTags").value.trim();
+        const tags = tagsRaw
+          ? tagsRaw
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean)
+          : [];
+
+        Object.assign(t, { title, desc, deadline, category, tags });
+        save();
+        render();
+      }
+
+      function escapeHtml(str) {
+        return (str || "").replace(
+          /[&<>"']/g,
+          (s) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[s],
+        );
+      }
+
+      // ======= Filter, Search, Render =======
+      function getFiltered() {
+        const q = $("#searchInput").value.toLowerCase().trim();
+        const s = $("#statusFilter").value;
+        const c = $("#categoryFilter").value;
+
+        let arr = [...todos];
+
+        // filter by status
+        if (s === "open") arr = arr.filter((t) => !t.done);
+        if (s === "done") arr = arr.filter((t) => t.done);
+        if (s === "overdue")
+          arr = arr.filter((t) => !t.done && isOverdue(t.deadline));
+        if (s === "today")
+          arr = arr.filter((t) => !t.done && isToday(t.deadline));
+
+        // filter by category
+        if (c !== "all") arr = arr.filter((t) => (t.category || "") === c);
+
+        // search
+        if (q) {
+          arr = arr.filter(
+            (t) =>
+              t.title.toLowerCase().includes(q) ||
+              (t.desc || "").toLowerCase().includes(q) ||
+              (t.tags || []).some((tag) => tag.toLowerCase().includes(q)),
+          );
+        }
+        return arr;
+      }
+
+      function render() {
+        const list = $("#todoList");
+        const data = getFiltered();
+        list.innerHTML = "";
+
+        if (!data.length) {
+          list.innerHTML = `<div class="empty">គ្មានកិច្ចការទេ — បន្ថែមថ្មីមួយទៅ!</div>`;
+        } else {
+          data.forEach((t) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "card" + (t.done ? " completed" : "");
+            wrapper.dataset.id = t.id;
+
+            const badgeClass = deadlineBadgeClass(t.deadline, t.done);
+            const tagText =
+              t.tags && t.tags.length ? `🏷️ ${t.tags.join(", ")}` : "";
+
+            wrapper.innerHTML = `
+            <div class="left">
+              <input class="check" type="checkbox" ${t.done ? "checked" : ""} />
+            </div>
+            <div class="content">
+              <div class="title">${escapeHtml(t.title)}</div>
+              ${t.desc ? `<div class="desc">${escapeHtml(t.desc)}</div>` : ""}
+              <div class="meta">
+                ${t.deadline ? `<span class="badge ${badgeClass}">📅 ${fmtDateStr(t.deadline)}</span>` : ""}
+                ${t.category ? `<span class="badge">📁 ${escapeHtml(t.category)}</span>` : ""}
+                ${tagText ? `<span class="badge">${escapeHtml(tagText)}</span>` : ""}
+                ${t.done ? `<span class="badge done">✓ Done</span>` : ""}
+              </div>
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="startEdit('${t.id}')">✏️ Edit</button>
+              <button class="icon-btn del" onclick="deleteTodo('${t.id}')">🗑️ Delete</button>
+            </div>
+          `;
+
+            wrapper
+              .querySelector(".check")
+              .addEventListener("change", () => toggleDone(t.id));
+            list.appendChild(wrapper);
+          });
+        }
+
+        // Update counters
+        const total = todos.length;
+        const done = todos.filter((t) => t.done).length;
+        $("#countInfo").textContent = `${total} items • ${done} done`;
+
+        // Restore toolbar focus state visually (no-op)
+      }
+
+      // ======= Bulk Ops, Export/Import, Theme =======
+      function clearDone() {
+        todos = todos.filter((t) => !t.done);
+        save();
+        render();
+      }
+      function clearAll() {
+        if (!confirm("លុបទាំងអស់មែនទេ?")) return;
+        todos = [];
+        save();
+        render();
+      }
+
+      function exportJSON() {
+        const data = JSON.stringify({ todos }, null, 2);
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "todos_backup.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importJSON(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const obj = JSON.parse(e.target.result);
+            if (!obj || !Array.isArray(obj.todos))
+              throw new Error("Invalid format");
+            // Merge by replacing (or you can merge intelligently)
+            todos = obj.todos.map((t) => ({
+              id: t.id || uid(),
+              title: String(t.title || "").slice(0, 200),
+              desc: String(t.desc || ""),
+              deadline: t.deadline || "",
+              category: t.category || "",
+              tags: Array.isArray(t.tags) ? t.tags.map((x) => String(x)) : [],
+              done: !!t.done,
+              created: Number(t.created || Date.now()),
+            }));
+            save();
+            render();
+            alert("Imported successfully!");
+          } catch (err) {
+            alert("Failed to import JSON.");
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function toggleTheme() {
+        const dark = document.body.classList.toggle("dark");
+        localStorage.setItem(THEME_KEY, dark ? "dark" : "light");
+      }
+
+      // ======= Bindings =======
+      $("#addBtn").addEventListener("click", addTodo);
+      $("#titleInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") addTodo();
+      });
+      $("#descInput").addEventListener("keydown", (e) => {
+        if (e.metaKey || e.ctrlKey) {
+          if (e.key.toLowerCase() === "enter") addTodo();
+        }
+      });
+
+      $("#searchInput").addEventListener("input", render);
+      $("#statusFilter").addEventListener("change", render);
+      $("#categoryFilter").addEventListener("change", render);
+
+      $("#clearDone").addEventListener("click", clearDone);
+      $("#clearAll").addEventListener("click", clearAll);
+      $("#exportBtn").addEventListener("click", exportJSON);
+      $("#importBtn").addEventListener("click", () => $("#fileInput").click());
+      $("#fileInput").addEventListener("change", (e) => {
+        const f = e.target.files[0];
+        if (f) importJSON(f);
+        e.target.value = "";
+      });
+
+      $("#toggleTheme").addEventListener("click", toggleTheme);
+
+      window.addEventListener("load", loadInitial);
+    </script>
+  </body>
+</html>
+``

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculate Grid</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="transition-0.5s bg-white" >
+    <button
+      class="toggleMode border-1 border-solid border-gray-300 rounded-sm p-1 m-4 cursor-pointer"
+      onclick="toggleMode()"
+    >
+      Toggle Mode
+    </button>
+    <div class="container h-screen flex justify-center items-center">
+      <div class="calculate-div w-[320px] shadow-md rounded-md bg-white">
+        <div class="show-ui py-5 p-1 px-4 border-5 border-solid border-black">
+          <h1 class="displayValue font-bold text-red-400"></h1>
+        </div>
+        <div class="button-container grid grid-cols-4 gap-2 p-1 pl-6 pt-2">
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+          <button
+            class="w-10 py-5 border-none shadow-md rounded-full bg-black"
+          ></button>
+        </div>
+      </div>
+    </div>      
+
+    <script>
+      function toggleMode() {
+        if (document.body.style.backgroundColor === "black") {
+          document.body.style.backgroundColor = "white";
+          document.body.style.color = "black";
+        } else {
+          document.body.style.backgroundColor = "black";
+          document.body.style.color = "white";
+        }
+      }
+    </script>
+  </body>
+</html>
