@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ink Blade Ascension</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ================= HERO ================= */
+#hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* CHARACTER FULLSCREEN */
+#character {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    filter: contrast(1.2) brightness(0.9);
+    animation: zoom 12s infinite alternate ease-in-out;
+}
+
+/* DARK CINEMATIC OVERLAY */
+#hero::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 40%, black 95%);
+}
+
+/* ================= POEM ================= */
+#poem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 34px;
+    line-height: 1.8;
+    letter-spacing: 2px;
+    z-index: 10;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 30px white,
+        0 0 60px white;
+
+    animation: fadeIn 3s ease forwards, float 4s ease-in-out infinite;
+    opacity: 0;
+}
+
+/* ================= WIND EFFECT ================= */
+.wind {
+    position: absolute;
+    width: 200%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, white, transparent);
+    opacity: 0.08;
+    animation: windMove 6s linear infinite;
+}
+
+/* ================= PARTICLES ================= */
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    opacity: 0.6;
+    animation: floatUp 8s linear infinite;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes float {
+    0%,100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -55%); }
+}
+
+@keyframes windMove {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(50%); }
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+</style>
+</head>
+
+<body>
+<h2 class="">Samith@</h2>
+<div id="hero">
+
+    <!-- CHARACTER -->
+    <img id="character" src="ChatGPT Image Mar 20, 2026, 10_22_02 PM.png">
+
+    <!-- POEM -->
+    <div id="poem">
+        黑夜无光，剑意如霜；<br>
+        一念斩天，万法皆亡；<br>
+        风止于刃，魂断苍茫。
+    </div>
+
+    <!-- WIND LINES -->
+    <div class="wind" style="top:30%;"></div>
+    <div class="wind" style="top:50%; animation-delay:2s;"></div>
+    <div class="wind" style="top:70%; animation-delay:4s;"></div>
+
+</div>
+
+<script>
+// PARTICLES
+for (let i = 0; i < 120; i++) {
+    let p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDelay = Math.random() * 8 + "s";
+    document.body.appendChild(p);
+}
+</script>
+
+</body>
+</html>
