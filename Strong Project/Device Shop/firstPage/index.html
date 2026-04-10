@@ -1,11 +1,627 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Device Shop</title>
-</head>
-<body>
-    
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <!-- Header container    --> 
+    <header
+      class="shadow-md w-full h-20 flex p-5 gap-3 justify-between fixed bg-white z-50"
+    >
+      <div class="left-side flex ml-5 items-center gap-5">
+        <div class="title">
+          <h2 class="font-bold text-[20px]">LapAI Store</h2>
+        </div>
+        <div class="relative w-80">
+          <!-- Search Icon -->
+          <svg
+            class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+
+          <!-- Input -->
+          <input
+            type="text"
+            placeholder="Search by workflow or spec…"
+            class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <div
+        class="button-choice fond-bold text-gray-400 flex gap-5 items-center"
+      >
+        <div class="">Student</div>
+        <div class="">Gaming</div>
+        <div class="">Business</div>
+        <div class="">Editing</div>
+        <div class="">Budge</div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+          class="h-6 w-6"
+          role="img"
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          style="color: rgb(74, 85, 101)"
+        >
+          <path
+            fill="currentColor"
+            d="M4.24 12.25a4.2 4.2 0 0 1-1.24-3A4.25 4.25 0 0 1 7.25 5c1.58 0 2.96.86 3.69 2.14h1.12A4.24 4.24 0 0 1 15.75 5A4.25 4.25 0 0 1 20 9.25c0 1.17-.5 2.25-1.24 3L11.5 19.5zm15.22.71C20.41 12 21 10.7 21 9.25A5.25 5.25 0 0 0 15.75 4c-1.75 0-3.3.85-4.25 2.17A5.22 5.22 0 0 0 7.25 4A5.25 5.25 0 0 0 2 9.25c0 1.45.59 2.75 1.54 3.71l7.96 7.96z"
+          ></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+          role="img"
+          width="64"
+          class="h-6 w-6"
+          height="64"
+          viewBox="0 0 24 24"
+          style="color: rgb(74, 85, 101)"
+        > 
+          <path
+            fill="currentColor"
+            d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m-9-1a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M18 6H4.27l2.55 6H15c.33 0 .62-.16.8-.4l3-4c.13-.17.2-.38.2-.6a1 1 0 0 0-1-1m-3 7H6.87l-.77 1.56L6 15a1 1 0 0 0 1 1h11v1H7a2 2 0 0 1-2-2a2 2 0 0 1 .25-.97l.72-1.47L2.34 4H1V3h2l.85 2H18a2 2 0 0 1 2 2c0 .5-.17.92-.45 1.26l-2.91 3.89c-.36.51-.96.85-1.64.85"
+          ></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+          role="img"
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          style="color: rgb(74, 85, 101)"
+          class="h-6 w-6"
+        >
+          <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+            <path
+              d="M16 9a4 4 0 1 1-8 0a4 4 0 0 1 8 0m-2 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0"
+            ></path>
+            <path
+              d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1M3 12c0 2.09.713 4.014 1.908 5.542A8.99 8.99 0 0 1 12.065 14a8.98 8.98 0 0 1 7.092 3.458A9 9 0 1 0 3 12m9 9a8.96 8.96 0 0 1-5.672-2.012A6.99 6.99 0 0 1 12.065 16a6.99 6.99 0 0 1 5.689 2.92A8.96 8.96 0 0 1 12 21"
+            ></path>
+          </g>
+        </svg>
+      </div>
+    </header>
+    <!-- Main Container page poster -->
+    <div class="post-container h-full w-full gap-20 flex">
+      <div class="left-side-text-conttainer w-[582px] p-5">
+        <div class="top-left-side bg-purple-200 rounded-full flex py-2 p-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="27"
+            height="27"
+            viewBox="0 0 16 16"
+            style="color: rgb(128, 82, 246)"
+          >
+            <g fill="currentColor" fill-rule="evenodd">
+              <path
+                d="M14.775 1.206L13.73 4.289l1.946 2.607l-3.254-.041l-1.879 2.656l-.966-3.107l-3.106-.965l2.656-1.88L9.086.305l2.606 1.946z"
+              ></path>
+              <path
+                d="M1.852 15.533c-.39.391-.922.492-1.188.226l-.406-.405c-.266-.266-.164-.797.227-1.188L10.788 3.863c.391-.391.922-.492 1.188-.227l.406.406c.266.266.165.797-.227 1.188zm11.659-1.584s.162-1.059-.61-1.823c-.773-.762-1.87-.626-1.87-.626s1.266.02 1.895-.603c.631-.623.586-1.847.586-1.847s.133 1.35.634 1.847c.505.496 1.847.603 1.847.603s-1.261.102-1.819.652c-.56.553-.663 1.797-.663 1.797m-5 2s.162-1.059-.61-1.823c-.773-.762-1.87-.626-1.87-.626s1.266.02 1.895-.603c.631-.623.586-1.847.586-1.847s.133 1.35.634 1.847c.505.496 1.847.603 1.847.603s-1.261.102-1.819.652c-.56.553-.663 1.797-.663 1.797m-5-11s.162-1.059-.61-1.823c-.773-.762-1.87-.626-1.87-.626s1.266.02 1.895-.603c.631-.623.586-1.847.586-1.847s.133 1.35.634 1.847c.505.496 1.847.603 1.847.603s-1.261.102-1.819.652c-.56.553-.663 1.797-.663 1.797"
+              ></path>
+            </g>
+          </svg>
+          <div class="txt text-[16px] text-purple-500 pl-5 font-bold">
+            NEXT-GEN RECOMMENDATION ENGINE
+          </div>
+        </div>
+        <div class="huge-text mt-5 mb-6">
+          <h1 class="text-[80px] font-bold leading-none">
+            Find The Right Laptop With AI
+          </h1>
+        </div>
+        <div class="under-huge-text w-100 mb-6">
+          <p class="text-gray-500">
+            Skip the spec sheets. Tell us how you work, and our AI​ Concierage
+            will create your perfect hardware match.
+          </p>
+        </div>
+        <div class="botton-button-left-side pt-5 gap-6">
+          <button
+            class="p-2 py-3 px-11 bg-purple-200 text-black font-bold rounded-full hover:bg-purple-100 duration-75 shadow-md hover:text-black"
+          >
+            Shop now
+          </button>
+          <button
+            class="border-transparent bg-slate-50 shadow-md px-15 pl-5 font-bold rounded-full p-2 py-3 hover:bg-purple-200 duration-100"
+          >
+            Try AI 🤖
+          </button>
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="right-side-container mt-30">
+        <img
+          src="https://images.pexels.com/photos/4007744/pexels-photo-4007744.jpeg"
+          alt=""
+          class="image-right-container object-cover rounded-xl h-[585px] w-[585px] rotate-3 shadow-md"
+        />
+      </div>
+    </div>
+    <!-- Second container of page -->
+    <div class="second-container h-screen p-5 w-full pt-5">
+      <div class="h1-container">
+        <h1 class="tille-second font-bold text-[30px]">Brown by Workflow</h1>
+      </div>
+      <!-- Grid container -->
+      <div class="grid-container grid grid-cols-4 gap-5">
+        <!-- 1 -->
+        <div
+          class="px-20 py-50 shadow-lg col-span-2 pt-3 pl-3 rounded-md bg-[url(https://images.pexels.com/photos/35378672/pexels-photo-35378672.jpeg)] bg-cover w-full"
+        >
+          <div class="h2">
+            <h2 class="font-bold text-[20px]">Student</h2>
+          </div>
+          <div class="p-text">
+            <p class="text-gray-400">
+              Lightweight, long battery, perfect for campus.
+            </p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div
+          class="px-20 py-40 shadow-lg row-span-2 rounded-md bg-black bg-[url(https://images.pexels.com/photos/9140600/pexels-photo-9140600.jpeg)] bg-cover"
+        ></div>
+        <!-- 3 -->
+        <div
+          class="px-20 py-40 bg-slate-200 shadow-lg rounded-md bg-[url(https://images.pexels.com/photos/8989524/pexels-photo-8989524.jpeg)] bg-cover"
+        ></div>
+        <!-- Under grid container -->
+        <!-- 1 -->
+        <div
+          class="px-20 py-40 bg-slate-200 shadow-lg rounded-md bg-[url(https://images.pexels.com/photos/16518045/pexels-photo-16518045.jpeg)] bg-cover"
+        ></div>
+        <!-- 2 -->
+        <div
+          class="px-20 py-40 bg-slate-200 shadow-lg rounded-md bg-[url(https://images.pexels.com/photos/5185166/pexels-photo-5185166.jpeg)] bg-cover"
+        ></div>
+        <!-- 3 -->
+        <div
+          class="px-20 py-40 bg-slate-200 shadow-lg rounded-md bg-[url(https://images.pexels.com/photos/35378672/pexels-photo-35378672.jpeg)] bg-cover"
+        ></div>
+      </div>
+    </div>
+    <!-- M Carbon elite ai container -->
+    <div
+      class="m-elite-contaier w-full h-screen p-5 flex gap-20 pt-10 bg-slate-100 rounded-xl shadow-md mt-10"
+    >
+      <!-- Left side -->
+      <div class="left-side w-1/2 p-5 items-start flex flex-col justify-center">
+        <span class="text-purple-400 font-bold text-[15px]"
+          >FEATURE LAUNCH</span
+        >
+        <h1 class="elite-container text-black text-[50px] font-bold">
+          M-Carbon Elite AI
+        </h1>
+        <div class="flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 640"
+            class="h-5 w-5"
+          >
+            <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+            <path
+              d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"
+            />
+          </svg>
+          <span class="">45 TOPS NPC for AI workloads</span>
+        </div>
+        <div class="flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 640"
+            class="h-5 w-5"
+          >
+            <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+            <path
+              d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"
+            /></svg
+          >3.2K OLED Pro Display
+        </div>
+        <div class="flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 640"
+            class="h-5 w-5"
+          >
+            <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+            <path
+              d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"
+            /></svg
+          >Advanced Cooling System
+        </div>
+        <!-- Button Pre-Order -->
+        <button
+          class="button-pre p-4 px-10 bg-purple-200 rounded-full shadow-md mt-5 hover:bg-purple-100 ease-in-out"
+        >
+          Pre-Order Now
+        </button>
+      </div>
+      <!-- Right side container -->
+      <div class="right-side-container mt-5">
+        <img
+          src="https://images.pexels.com/photos/4007744/pexels-photo-4007744.jpeg"
+          alt=""
+          class="image-right-container object-cover rounded-xl h-[585px] w-[585px] rotate-3 shadow-md"
+        />
+      </div>
+    </div>
+    <!-- Top perform gears -->
+    <div class="container-top-perform-gears h-screen w-full p-5 mt-10">
+      <div class="">
+        <h1 class="text-perform font-bold text-[36px]">Top Performing Gears</h1>
+        <div class="flex justify-between items-center">
+          <p class="under-text text-gray-500">
+            Curate selection of the best-performing gears
+          </p>
+          <div class="view-all">
+            <h2 class="font-bold text-[17px] text-purple-500 asd">
+              View All Collection->
+            </h2>
+          </div>
+        </div>
+        <div
+          class="grid-container-perform grid grid-cols-4 gap-5 mt-10 bg-white"
+        >
+          <!-- 1 -->
+          <div class="1 box-border bg-white rounded-md shadow-md p-5 relative">
+            <img
+              src="https://images.pexels.com/photos/4007744/pexels-photo-4007744.jpeg"
+              alt=""
+              class="object-cover h-[200px] w-full"
+            />
+            <div
+              class="bg-white/30 backdrop-blur-sm absolute top-3 left-3 px-2 py-1 rounded-full text-[12px] font-bold text-black"
+            >
+              %50 OFF
+            </div>
+            <h2 class="font-bold text-[20px] mt-3">M-Carbon Elite AI</h2>
+            <p class="text-gray-500">The ultimate laptop for AI workloads.</p>
+            <div class="rating-star flex items-center  justify-end  ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <span class="text-gray-400 px-3">(4.5K)</span>
+            </div>
+            <div class="unit-price-perform flex items-center justify-betweenS">
+              <h2 class="price text-[30px] font-bold mt-5">1,643$</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-7 h-7 mt-7"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="1 box-border bg-white rounded-md shadow-md p-5 relative">
+            <img
+              src="https://images.pexels.com/photos/4007744/pexels-photo-4007744.jpeg"
+              alt=""
+              class="object-cover h-[200px] w-full"
+            />
+            <div
+              class="bg-white/30 backdrop-blur-sm absolute top-3 left-3 px-2 py-1 rounded-full text-[12px] font-bold text-black"
+            >
+              %50 OFF
+            </div>
+            <h2 class="font-bold text-[20px] mt-3">M-Carbon Elite AI</h2>
+            <p class="text-gray-500">The ultimate laptop for AI workloads.</p>
+            <div class="rating-star flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <span class="text-gray-400 px-3">(4.5K)</span>
+            </div>
+            <div class="unit-price-perform flex items-center justify-between">
+              <h2 class="price text-[30px] font-bold mt-5">1,643$</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-7 h-7 mt-7"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="1 box-border bg-white rounded-md shadow-md p-5 relative">
+            <img
+              src="https://images.pexels.com/photos/4007744/pexels-photo-4007744.jpeg"
+              alt=""
+              class="object-cover h-[200px] w-full"
+            />
+            <div
+              class="bg-white/30 backdrop-blur-sm absolute top-3 left-3 px-2 py-1 rounded-full text-[12px] font-bold text-black"
+            >
+              %50 OFF
+            </div>
+            <h2 class="font-bold text-[20px] mt-3">M-Carbon Elite AI</h2>
+            <p class="text-gray-500">The ultimate laptop for AI workloads.</p>
+            <div class="rating-star flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <span class="text-gray-400 px-3">(4.5K)</span>
+            </div>
+            <div class="unit-price-perform flex items-center justify-between">
+              <h2 class="price text-[30px] font-bold mt-5">1,643$</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-7 h-7 mt-7"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="1 box-border bg-white rounded-md shadow-md p-5 relative">
+            <img
+              src="https://images.pexels.com/photos/4007744/pexels-photo-4007744.jpeg"
+              alt=""
+              class="object-cover h-[200px] w-full"
+            />
+            <div
+              class="bg-white/30 backdrop-blur-sm absolute top-3 left-3 px-2 py-1 rounded-full text-[12px] font-bold text-black"
+            >
+              %50 OFF
+            </div>
+            <h2 class="font-bold text-[20px] mt-3">M-Carbon Elite AI</h2>
+            <p class="text-gray-500">The ultimate laptop for AI workloads.</p>
+            <div class="rating-star flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="text-yellow-300 w-4 h-4"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"
+                />
+              </svg>
+              <span class="text-gray-400 px-3">(4.5K)</span>
+            </div>
+            <div class="unit-price-perform flex justify-between items-center">
+              <div class="">
+                <h2 class="price text-[30px] font-bold mt-5">1,643$</h2>
+              </div>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                class="w-7 h-7 mt-7"
+              >
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer of the first page -->
+    <footer
+      class="first-page-footer w-full py-17 bg-slate-400 p-5 mt-10 mb-10 flex justify-center pt-1"
+    >
+      <div class="flex gap-8">
+        <div class="">About</div>
+        <div class="">Blog</div>
+        <div class="">Contact</div>
+        <div class="">Privacy Policy</div>
+        <div class="">Terms of Service</div>
+      </div>
+    </footer>
+  </body>
 </html>
