@@ -266,11 +266,7 @@
 
       <!-- Create Form -->
       <div class="controls">
-        <input
-          id="titleInput"
-          type="text"
-          placeholder="Task tittle.."
-        />
+        <input id="titleInput" type="text" placeholder="Task tittle.." />
         <input id="deadlineInput" type="date" />
         <select id="categoryInput">
           <option value="">— Category —</option>
@@ -283,8 +279,7 @@
         <button id="addBtn">Add Todo</button>
         <textarea
           id="descInput"
-          placeholder="ពណ៌នាខ្លីៗ (ស្រេចចិត្ត)"
-        ></textarea>
+          placeholder="ពណ៌នាខ្លីៗ (ស្រេចចិត្ត)"></textarea>
       </div>
 
       <!-- Toolbar -->
@@ -292,8 +287,7 @@
         <input
           id="searchInput"
           type="text"
-          placeholder="ស្វែងរកតាមចំណងជើង/ពណ៌នា…"
-        />
+          placeholder="ស្វែងរកតាមចំណងជើង/ពណ៌នា…" />
         <select id="statusFilter">
           <option value="all">All</option>
           <option value="open">Open</option>
@@ -316,8 +310,7 @@
             id="fileInput"
             type="file"
             accept="application/json"
-            style="display: none"
-          />
+            style="display: none" />
         </div>
       </div>
 
@@ -359,7 +352,7 @@
       }
 
       // ======= Helpers =======
-      const $ = (s) => document.querySelector(s);
+      const $ = s => document.querySelector(s);
 
       function uid() {
         return (
@@ -412,7 +405,7 @@
         const tags = tagsRaw
           ? tagsRaw
               .split(",")
-              .map((t) => t.trim())
+              .map(t => t.trim())
               .filter(Boolean)
           : [];
 
@@ -439,7 +432,7 @@
       }
 
       function toggleDone(id) {
-        const t = todos.find((x) => x.id === id);
+        const t = todos.find(x => x.id === id);
         if (t) {
           t.done = !t.done;
           save();
@@ -448,7 +441,7 @@
       }
 
       function deleteTodo(id) {
-        todos = todos.filter((x) => x.id !== id);
+        todos = todos.filter(x => x.id !== id);
         save();
         render();
       }
@@ -456,7 +449,7 @@
       // Inline edit
       function startEdit(id) {
         const row = document.querySelector(`[data-id="${id}"]`);
-        const t = todos.find((x) => x.id === id);
+        const t = todos.find(x => x.id === id);
         if (!row || !t) return;
 
         // Replace content area with editable fields
@@ -470,7 +463,7 @@
           <input id="editDeadline" type="date" value="${t.deadline || ""}" />
           <select id="editCategory">
             <option value="">— Category —</option>
-            ${["Study", "Work", "Personal", "Shopping"].map((c) => `<option value="${c}" ${t.category === c ? "selected" : ""}>${c}</option>`).join("")}
+            ${["Study", "Work", "Personal", "Shopping"].map(c => `<option value="${c}" ${t.category === c ? "selected" : ""}>${c}</option>`).join("")}
           </select>
           <input id="editTags" placeholder="tag1, tag2" value="${escapeHtml((t.tags || []).join(", "))}" />
         </div>
@@ -484,7 +477,7 @@
 
       function saveEdit(id) {
         const row = document.querySelector(`[data-id="${id}"]`);
-        const t = todos.find((x) => x.id === id);
+        const t = todos.find(x => x.id === id);
         if (!row || !t) return;
 
         const title = row.querySelector("#editTitle").value.trim();
@@ -496,7 +489,7 @@
         const tags = tagsRaw
           ? tagsRaw
               .split(",")
-              .map((s) => s.trim())
+              .map(s => s.trim())
               .filter(Boolean)
           : [];
 
@@ -508,7 +501,7 @@
       function escapeHtml(str) {
         return (str || "").replace(
           /[&<>"']/g,
-          (s) =>
+          s =>
             ({
               "&": "&amp;",
               "<": "&lt;",
@@ -528,23 +521,23 @@
         let arr = [...todos];
 
         // filter by status
-        if (s === "open") arr = arr.filter((t) => !t.done);
-        if (s === "done") arr = arr.filter((t) => t.done);
+        if (s === "open") arr = arr.filter(t => !t.done);
+        if (s === "done") arr = arr.filter(t => t.done);
         if (s === "overdue")
-          arr = arr.filter((t) => !t.done && isOverdue(t.deadline));
+          arr = arr.filter(t => !t.done && isOverdue(t.deadline));
         if (s === "today")
-          arr = arr.filter((t) => !t.done && isToday(t.deadline));
+          arr = arr.filter(t => !t.done && isToday(t.deadline));
 
         // filter by category
-        if (c !== "all") arr = arr.filter((t) => (t.category || "") === c);
+        if (c !== "all") arr = arr.filter(t => (t.category || "") === c);
 
         // search
         if (q) {
           arr = arr.filter(
-            (t) =>
+            t =>
               t.title.toLowerCase().includes(q) ||
               (t.desc || "").toLowerCase().includes(q) ||
-              (t.tags || []).some((tag) => tag.toLowerCase().includes(q)),
+              (t.tags || []).some(tag => tag.toLowerCase().includes(q)),
           );
         }
         return arr;
@@ -558,7 +551,7 @@
         if (!data.length) {
           list.innerHTML = `<div class="empty">គ្មានកិច្ចការទេ — បន្ថែមថ្មីមួយទៅ!</div>`;
         } else {
-          data.forEach((t) => {
+          data.forEach(t => {
             const wrapper = document.createElement("div");
             wrapper.className = "card" + (t.done ? " completed" : "");
             wrapper.dataset.id = t.id;
@@ -596,7 +589,7 @@
 
         // Update counters
         const total = todos.length;
-        const done = todos.filter((t) => t.done).length;
+        const done = todos.filter(t => t.done).length;
         $("#countInfo").textContent = `${total} items • ${done} done`;
 
         // Restore toolbar focus state visually (no-op)
@@ -604,7 +597,7 @@
 
       // ======= Bulk Ops, Export/Import, Theme =======
       function clearDone() {
-        todos = todos.filter((t) => !t.done);
+        todos = todos.filter(t => !t.done);
         save();
         render();
       }
@@ -628,19 +621,19 @@
 
       function importJSON(file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
           try {
             const obj = JSON.parse(e.target.result);
             if (!obj || !Array.isArray(obj.todos))
               throw new Error("Invalid format");
             // Merge by replacing (or you can merge intelligently)
-            todos = obj.todos.map((t) => ({
+            todos = obj.todos.map(t => ({
               id: t.id || uid(),
               title: String(t.title || "").slice(0, 200),
               desc: String(t.desc || ""),
               deadline: t.deadline || "",
               category: t.category || "",
-              tags: Array.isArray(t.tags) ? t.tags.map((x) => String(x)) : [],
+              tags: Array.isArray(t.tags) ? t.tags.map(x => String(x)) : [],
               done: !!t.done,
               created: Number(t.created || Date.now()),
             }));
@@ -661,10 +654,10 @@
 
       // ======= Bindings =======
       $("#addBtn").addEventListener("click", addTodo);
-      $("#titleInput").addEventListener("keydown", (e) => {
+      $("#titleInput").addEventListener("keydown", e => {
         if (e.key === "Enter") addTodo();
       });
-      $("#descInput").addEventListener("keydown", (e) => {
+      $("#descInput").addEventListener("keydown", e => {
         if (e.metaKey || e.ctrlKey) {
           if (e.key.toLowerCase() === "enter") addTodo();
         }
@@ -678,7 +671,7 @@
       $("#clearAll").addEventListener("click", clearAll);
       $("#exportBtn").addEventListener("click", exportJSON);
       $("#importBtn").addEventListener("click", () => $("#fileInput").click());
-      $("#fileInput").addEventListener("change", (e) => {
+      $("#fileInput").addEventListener("change", e => {
         const f = e.target.files[0];
         if (f) importJSON(f);
         e.target.value = "";
