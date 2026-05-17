@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <style>
       * {
@@ -93,18 +95,17 @@
         position: absolute;
       }
       .brands-type {
+        cursor: pointer;
+        margin-top: 10px;
         align-items: center;
         display: flex;
         gap: 10px;
-        width: 100%;
         justify-content: space-around;
-        grid-template-columns: repeat(5, 300px);
       }
       .brand {
         width: 200px;
-        padding: 10px 10px;
         background-color: black;
-        height: 100px;
+        
       }
       .under-poster {
         background-color: pink;
@@ -175,7 +176,7 @@
         transition: 0.5s;
       }
       .new-price {
-        color: white;
+        color: rgb(128, 89, 89);
       }
       .icon-love {
         &:hover {
@@ -190,6 +191,25 @@
         .save {
           font-size: 15px;
         }
+        
+      }
+      .slider {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+         
+        position: relative;
+      }
+
+      .slides {
+        display: flex;
+        width: 100%;
+      }
+
+      .slide {
+        min-width: 100%;
+        height: 400px;
+        transition: transform 0.8s ease-in-out;
       }
       .footer {
         background-color: #111;
@@ -254,13 +274,50 @@
         font-size: 14px;
         color: #aaa;
       }
+      .img{
+        width: 100%;
+      }
+      .img-brand{
+        width: 100%;
+        height: 100px;
+      }
+      .dis{
+        position: absolute;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        font-weight: bold;
+        padding: 5px;
+        font-size: 80px;
+      }
+      .under-nav{
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        padding: 5px;
+      }
+      .title{
+        width: 90px;
+      }
+      .choice-new{
+        display: flex;
+        gap: 10px;
+      }
     </style>
   </head>
 
   <body>
     <nav class="head">
       <!-- LOGO -->
-      <h2 class="logo">Meme Shop</h2>
+      <img src="https://zandokh.com/images/ZANDO-NEW-LOGO-2025.png" alt="" class="title">
+      <div class="choice-new">
+        <h3 class="choice">WOMEN</h3>
+        <h3 class="choice">MEN</h3>
+        <h3 class="choice">KIDS</h3>
+      </div>
       <!-- Search bar -->
       <div class="search-bar">
         <input type="text" placeholder="Search......." class="search" />
@@ -292,26 +349,46 @@
         </svg>
       </div>
     </nav>
+    <div class="under-nav">
+      <p class="text-dis">Shop US$40 Get Free Delivery</p>
+    </div>
     <!-- Poster New for Discount items -->
-    <div class="poster">
-      <img
-        src="https://i.pinimg.com/1200x/91/09/79/910979a5f0722da3fccb2e1032dc3100.jpg"
-        alt=""
-        class="poster-image"
-        width="100%"
-        height="450px" />
+
+    <div class="slider">
+      <div class="slides">
+        <img
+          src="https://i.pinimg.com/736x/a3/d2/74/a3d274a20a01a4acff57472cba40bf1a.jpg"
+          class="slide active" />
+        <img
+          src="https://i.pinimg.com/736x/fb/21/0a/fb210a2921f07846a47315c8c6debcc7.jpg"
+          class="slide" />
+        <img
+          src="https://i.pinimg.com/736x/16/38/51/163851f759def2d8bf80494391a29d70.jpg"
+          class="slide" />
+          <h2 class="dis">%50</h2>
+      </div>
     </div>
     <!-- Grid Brand -->
     <div class="brands-type">
-      <div class="brand"></div>
-      <div class="brand"></div>
-      <div class="brand"></div>
-      <div class="brand"></div>
-      <div class="brand"></div>
+      <div class="brand">
+        <img src="https://zandokh.com/image/catalog/banner/ZANDO/2026/Zando_Web.png" alt="" class="img-brand">
+      </div>
+      <div class="brand">
+        <img src="https://zandokh.com/image/catalog/banner/ZANDO/2026/Ten11_Web.png" alt="" class="img-brand">
+      </div>
+      <div class="brand">
+        <img src="https://zandokh.com/image/catalog/banner/ZANDO/2026/Routine_Web.png" alt="" class="img-brand">
+      </div>
+      <div class="brand">
+        <img src="https://zandokh.com/image/catalog/banner/ZANDO/2026/TagSpace_Web.png" alt="" class="img-brand">
+      </div>
+      <div class="brand">
+        <img src="https://zandokh.com/image/catalog/banner/ZANDO/2026/361_Web.png" alt="" class="img-brand">
+      </div>
     </div>
     <!-- Other poster of page -->
     <img
-      src="https://i.pinimg.com/originals/ea/76/98/ea7698690e5a8bf76d5738dd587246c0.gif"
+      src= "https://i.pinimg.com/1200x/80/3c/c2/803cc24726e912cfdcf79e9b80a60ff0.jpg"
       alt=""
       class="under-poster"
       width="100%"
@@ -324,7 +401,7 @@
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/736x/dc/ee/d7/dceed7f66c8f4e9ab19a4f7215b0befc.jpg"
+            src=" https://i.pinimg.com/1200x/fe/1a/9c/fe1a9c820f49e6ffa2acba958343548b.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -332,7 +409,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -351,14 +428,14 @@
           </div>
           <!-- Description -->
           <div class="descripton">
-            <h3 class="des">New Polo Shirt</h3>
+            <h3 class="des">New Toji Shirt</h3>
           </div>
         </div>
         <!-- 2 -->
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/236x/33/0d/fb/330dfb9be6901a46fe0f926cf8ae3e05.jpg"
+            src=" https://i.pinimg.com/1200x/48/73/7b/48737b2071c89c97395b43e5b2c21888.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -366,7 +443,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -385,14 +462,14 @@
           </div>
           <!-- Description -->
           <div class="descripton">
-            <h3 class="des">New Polo Shirt</h3>
+            <h3 class="des">Toji Shirt</h3>
           </div>
         </div>
         <!-- 3 -->
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/1200x/a6/8a/38/a68a38f2d71795e4545740fed47bae34.jpg"
+            src="https://i.pinimg.com/736x/5c/44/be/5c44becb6aea86b8cb4412cddce25cfd.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -400,7 +477,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -426,7 +503,7 @@
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/1200x/c9/7b/63/c97b638cfaeff965a2b2ed7440b5162c.jpg"
+            src="https://i.pinimg.com/1200x/a5/fc/8f/a5fc8fe0730caecb362a0165e49af3fb.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -434,7 +511,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -460,7 +537,7 @@
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/736x/8c/9f/64/8c9f64574dfe4226b8a29314e0746248.jpg"
+            src=" https://i.pinimg.com/736x/0c/b6/c2/0cb6c2fd440f06493cacc09a6a84e685.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -468,7 +545,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -494,7 +571,7 @@
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/736x/a3/99/9d/a3999d998fac11b8c148a823458fdf7a.jpg"
+            src="https://i.pinimg.com/736x/9f/49/32/9f49322b63398bd294a56d3f301a12e5.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -502,7 +579,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -528,7 +605,7 @@
         <div class="children-grid">
           <!-- image -->
           <img
-            src="https://i.pinimg.com/736x/6f/a6/1b/6fa61b7e8358056f71b8d51600e8d950.jpg"
+            src="https://i.pinimg.com/736x/9f/49/32/9f49322b63398bd294a56d3f301a12e5.jpg"
             alt=""
             class="image" />
           <div class="discount">
@@ -536,7 +613,7 @@
           </div>
           <div class="price">
             <div class="left">
-              <h3 class="old-price">US 67$</h3>
+              <h3 class="old-price"><del>US 67$</del></h3>
               <h3 class="new-price">50$</h3>
             </div>
             <div class="love-icon">
@@ -558,6 +635,8 @@
             <h3 class="des">New Polo Shirt</h3>
           </div>
         </div>
+         
+        </div>
       </div>
     </div>
     <!-- Footer web page -->
@@ -565,7 +644,7 @@
       <div class="footer-container">
         <!-- Logo / Brand -->
         <div class="footer-section">
-          <h2>MemeShop Mr. Samith</h2>
+          <h2>Outfit Shop</h2>
           <p>Your daily dose of memes & fun!</p>
         </div>
 
@@ -595,5 +674,42 @@
         <p>© 2026 MemeShop. All rights reserved.</p>
       </div>
     </footer>
+    <!-- Script -->
+    <script>
+      let index = 0;
+      const slides = document.querySelectorAll(".slide");
+
+      function showSlide() {
+        index++;
+
+        if (index >= slides.length) {
+          index = 0;
+        }
+
+        document.querySelector(".slides").style.transform =
+          `translateX(-${index * 100}%)`;
+      }
+
+      // move every 4 seconds
+      setInterval(showSlide, 4000);
+      //Slide image
+      let n = 0;
+      const slider = document.getElementById("slider");
+      const dots = document.querySelectorAll(".dots span");
+
+      function slide() {
+        n++;
+
+        if (n >= 3) index = 0;
+
+        slider.style.transform = `translateX(-${n * 100}%)`;
+
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[n].classList.add("active");
+      }
+
+      // 4 seconds pause
+      setInterval(slide, 4000);
+    </script>
   </body>
 </html>
