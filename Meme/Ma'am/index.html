@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows Security Center</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0078D4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Fake Windows taskbar */
+  .taskbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 4px;
+    z-index: 100;
+  }
+  .taskbar-start {
+    background: #0078D4;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: default;
+    border-radius: 2px;
+    font-weight: bold;
+  }
+  .taskbar-time {
+    margin-left: auto;
+    color: white;
+    font-size: 11px;
+    text-align: right;
+    line-height: 1.4;
+  }
+  .taskbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    padding: 0 8px;
+    color: white;
+    font-size: 14px;
+  }
+
+  /* Desktop background */
+  .desktop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  /* Fake desktop icons */
+  .desktop-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: white;
+    font-size: 11px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    cursor: default;
+    user-select: none;
+    width: 70px;
+    text-align: center;
+  }
+  .desktop-icon .icon { font-size: 32px; }
+  .di1 { top: 20px; left: 20px; }
+  .di2 { top: 20px; left: 100px; }
+  .di3 { top: 110px; left: 20px; }
+
+  /* Main alert window */
+  .alert-window {
+    background: #f0f0f0;
+    border: 1px solid #999;
+    border-radius: 4px;
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.8);
+    width: 560px;
+    max-width: 95vw;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    animation: windowShake 0.4s ease 1s, windowPop 0.3s ease;
+    position: relative;
+    z-index: 10;
+  }
+
+  @keyframes windowPop {
+    0% { transform: scale(0.85); opacity: 0; }
+    70% { transform: scale(1.03); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes windowShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  /* Title bar */
+  .title-bar {
+    background: linear-gradient(to bottom, #d43b3b, #a51c1c);
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 3px 3px 0 0;
+  }
+  .title-bar-icon { font-size: 14px; }
+  .title-bar-text {
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    flex: 1;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+  }
+  .title-bar-buttons {
+    display: flex;
+    gap: 2px;
+  }
+  .tb-btn {
+    width: 20px; height: 16px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 10px;
+    cursor: default;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .tb-btn:hover { background: rgba(255,255,255,0.35); }
+  .tb-close { background: rgba(200,0,0,0.6); }
+  .tb-close:hover { background: rgba(220,50,50,0.8); }
+
+  /* Alert body */
+  .alert-body {
+    padding: 20px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .alert-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .alert-icon {
+    font-size: 48px;
+    animation: iconPulse 1s ease infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes iconPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(200,0,0,0.4)); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(200,0,0,0.8)); }
+  }
+
+  .alert-title-block h1 {
+    font-size: 18px;
+    color: #c00;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .alert-title-block .subtitle {
+    font-size: 12px;
+    color: #555;
+  }
+
+  .threat-box {
+    background: #fff3f3;
+    border: 1px solid #ffbaba;
+    border-left: 4px solid #cc0000;
+    border-radius: 3px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+  .threat-box .threat-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #cc0000;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .threat-box .threat-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Courier New', monospace;
+  }
+  .threat-box .threat-detail {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* Scan section */
+  .scan-section {
+    margin-bottom: 16px;
+  }
+  .scan-label {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .scan-label .scan-status {
+    color: #cc0000;
+    font-weight: 600;
+    animation: blink 0.8s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .progress-track {
+    height: 18px;
+    background: #e0e0e0;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #cc0000, #ff4444);
+    width: 0%;
+    transition: width 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; right: -100%; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    animation: shimmer 1.2s linear infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-60%); }
+    100% { transform: translateX(60%); }
+  }
+
+  .scan-file {
+    font-size: 10px;
+    color: #666;
+    font-family: 'Courier New', monospace;
+    height: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .stat-card {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 8px;
+    text-align: center;
+  }
+  .stat-card .stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #cc0000;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .stat-card .stat-num.scanned { color: #0078D4; }
+  .stat-card .stat-label {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .warning-text {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.5;
+    background: #fffde7;
+    border: 1px solid #f0d000;
+    border-radius: 3px;
+    padding: 8px 10px;
+  }
+  .warning-text strong { color: #333; }
+
+  /* Footer / buttons */
+  .alert-footer {
+    padding: 12px 20px;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    align-items: center;
+    border-radius: 0 0 3px 3px;
+  }
+  .footer-help {
+    font-size: 11px;
+    color: #0078D4;
+    text-decoration: underline;
+    cursor: default;
+    margin-right: auto;
+  }
+
+  .btn {
+    padding: 6px 20px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: default;
+    border-radius: 3px;
+    border: 1px solid;
+    font-weight: 500;
+  }
+  .btn-secondary {
+    background: #f0f0f0;
+    border-color: #999;
+    color: #333;
+  }
+  .btn-secondary:hover { background: #e8e8e8; }
+  .btn-primary {
+    background: linear-gradient(to bottom, #cc2200, #aa1500);
+    border-color: #881100;
+    color: white;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    animation: buttonGlow 1.5s ease infinite;
+  }
+  @keyframes buttonGlow {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(200,0,0,0.2); }
+    50% { box-shadow: 0 0 0 4px rgba(200,0,0,0.4); }
+  }
+
+  /* Second smaller popup */
+  .second-popup {
+    position: fixed;
+    bottom: 50px;
+    right: 12px;
+    background: white;
+    border: 1px solid #bbb;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    width: 280px;
+    border-radius: 4px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.4s ease 3s forwards;
+    z-index: 50;
+    font-size: 11px;
+  }
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .second-popup .sp-title {
+    background: linear-gradient(to bottom, #e87000, #c55a00);
+    color: white;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px 3px 0 0;
+  }
+  .second-popup .sp-body {
+    padding: 10px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .second-popup .sp-btn {
+    display: block;
+    width: calc(100% - 20px);
+    margin: 0 10px 10px;
+    background: #e87000;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 11px;
+    border-radius: 2px;
+    cursor: default;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  /* Tray notification */
+  .tray-notification {
+    position: fixed;
+    bottom: 44px;
+    right: 0;
+    background: #1a1a2e;
+    color: white;
+    padding: 10px 14px;
+    font-size: 11px;
+    width: 220px;
+    opacity: 0;
+    animation: slideUp 0.4s ease 6s forwards;
+    border-top: 2px solid #cc0000;
+    z-index: 50;
+  }
+  .tray-notification strong { color: #ff6b6b; display: block; margin-bottom: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- Desktop bg -->
+<div class="desktop">
+
+  <div class="desktop-icon di1">
+    <span class="icon">🖥️</span>
+    <span>My Computer</span>
+  </div>
+  <div class="desktop-icon di2">
+    <span class="icon">🗑️</span>
+    <span>Recycle Bin</span>
+  </div>
+  <div class="desktop-icon di3">
+    <span class="icon">📁</span>
+    <span>Documents</span>
+  </div>
+
+  <!-- MAIN ALERT WINDOW -->
+  <div class="alert-window" id="mainAlert">
+    <div class="title-bar">
+      <span class="title-bar-icon">🛡️</span>
+      <span class="title-bar-text">Windows Security Alert — Critical Threat Detected</span>
+      <div class="title-bar-buttons">
+        <div class="tb-btn">_</div>
+        <div class="tb-btn">□</div>
+        <div class="tb-btn tb-close">✕</div>
+      </div>
+    </div>
+
+    <div class="alert-body">
+      <div class="alert-header">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-title-block">
+          <h1>CRITICAL THREAT DETECTED</h1>
+          <div class="subtitle">Windows Defender has found dangerous malware on your computer</div>
+        </div>
+      </div>
+
+      <div class="threat-box">
+        <div class="threat-label">⛔ Threat Identified</div>
+        <div class="threat-name" id="threatName">Trojan:Win32/Emotet.gen!A</div>
+        <div class="threat-detail">Severity: CRITICAL &nbsp;·&nbsp; Category: Spyware / Credential Stealer &nbsp;·&nbsp; Status: ACTIVE</div>
+      </div>
+
+      <div class="scan-section">
+        <div class="scan-label">
+          <span>Scanning system files...</span>
+          <span class="scan-status" id="scanStatus">● SCANNING</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="scan-file" id="scanFile">Initializing scan engine...</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num scanned" id="scannedCount">0</div>
+          <div class="stat-label">Files Scanned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="threatsCount">0</div>
+          <div class="stat-label">Threats Found</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="infectedCount">0</div>
+          <div class="stat-label">Infected Files</div>
+        </div>
+      </div>
+
+      <div class="warning-text">
+        ⚠️ <strong>Your personal data is at risk.</strong> This malware has been detected accessing your browser passwords, banking credentials, and private files. <strong>Do not shut down your computer</strong> — this may cause permanent data loss. Click <strong>"Remove Threats Now"</strong> to quarantine all infected files immediately.
+      </div>
+    </div>
+
+    <div class="alert-footer">
+      <span class="footer-help">What is this threat?</span>
+      <button class="btn btn-secondary" id="ignoreBtn">Ignore (not recommended)</button>
+      <button class="btn btn-primary" id="removeBtn">Remove Threats Now</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Taskbar -->
+<div class="taskbar">
+  <button class="taskbar-start">⊞ Start</button>
+  <div class="taskbar-icons">
+    <span>🛡️</span>
+    <span>🔊</span>
+    <span>📶</span>
+    <span id="taskbarTime"></span>
+  </div>
+</div>
+
+<!-- Second popup (orange, delayed) -->
+<div class="second-popup">
+  <div class="sp-title">
+    <span>🔥 Windows Firewall</span>
+    <span>✕</span>
+  </div>
+  <div class="sp-body">
+    <strong style="color:#c55a00">Suspicious outbound connection blocked!</strong><br>
+    An unknown process is attempting to send your files to a remote server in an unknown location.
+  </div>
+  <button class="sp-btn">View Details</button>
+</div>
+
+<!-- Tray notification (delayed more) -->
+<div class="tray-notification">
+  <strong>🔴 Windows Defender</strong>
+  Real-time protection has detected 3 additional infected files. Immediate action required.
+</div>
+
+<script>
+  // Update clock
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('taskbarTime').textContent =
+      now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Fake files being scanned
+  const fakeFiles = [
+    'C:\\Windows\\System32\\drivers\\etc\\hosts',
+    'C:\\Users\\User\\AppData\\Roaming\\Microsoft\\Windows\\',
+    'C:\\Program Files\\Common Files\\Microsoft Shared\\',
+    'C:\\Windows\\SysWOW64\\ntdll.dll',
+    'C:\\Users\\User\\AppData\\Local\\Temp\\~DF2394.tmp',
+    'C:\\Windows\\System32\\svchost.exe',
+    'C:\\Users\\User\\Documents\\passwords_backup.xlsx',
+    'C:\\Program Files\\Google\\Chrome\\User Data\\Default\\Login Data',
+    'C:\\Users\\User\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\',
+    'C:\\Windows\\System32\\lsass.exe',
+    'C:\\Users\\User\\Desktop\\banking_info.docx',
+    'C:\\Windows\\Temp\\cab_1234_tmp',
+    'C:\\Users\\User\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\',
+    'C:\\Windows\\System32\\winlogon.exe',
+    'C:\\Users\\User\\Pictures\\private\\',
+  ];
+
+  const threats = [
+    'Trojan:Win32/Emotet.gen!A',
+    'Spyware:Win32/Keylogger.B',
+    'Backdoor:Win32/Bladabindi!ml',
+    'Ransom:Win32/WannaCrypt',
+  ];
+
+  let progress = 0;
+  let scanned = 0;
+  let threatsFound = 0;
+  let infected = 0;
+  let fileIdx = 0;
+  let scanComplete = false;
+
+  const interval = setInterval(() => {
+    if (scanComplete) return;
+
+    // Increment progress unevenly (feels real)
+    progress += Math.random() * 2.5 + 0.5;
+    if (progress > 100) progress = 100;
+
+    scanned += Math.floor(Math.random() * 180 + 20);
+    if (scanned > 48392) scanned = 48392;
+
+    // Occasionally "find" a threat
+    if (Math.random() < 0.04 && threatsFound < 7) {
+      threatsFound++;
+      infected += Math.floor(Math.random() * 3) + 1;
+      document.getElementById('threatName').textContent =
+        threats[Math.floor(Math.random() * threats.length)];
+    }
+
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('scannedCount').textContent = scanned.toLocaleString();
+    document.getElementById('threatsCount').textContent = threatsFound;
+    document.getElementById('infectedCount').textContent = infected;
+    document.getElementById('scanFile').textContent = fakeFiles[fileIdx % fakeFiles.length];
+    fileIdx++;
+
+    if (progress >= 100) {
+      scanComplete = true;
+      clearInterval(interval);
+      document.getElementById('scanStatus').textContent = '● SCAN COMPLETE';
+      document.getElementById('scanStatus').style.color = '#cc0000';
+      document.getElementById('scanStatus').style.animation = 'none';
+      document.getElementById('scanFile').textContent = 'Scan complete. ' + threatsFound + ' threats detected.';
+
+      // Shake the window again
+      const win = document.getElementById('mainAlert');
+      win.style.animation = 'windowShake 0.4s ease';
+      setTimeout(() => win.style.animation = '', 500);
+    }
+  }, 120);
+
+  // Button effects
+  document.getElementById('ignoreBtn').addEventListener('click', () => {
+    const win = document.getElementById('mainAlert');
+    win.style.animation = 'windowShake 0.3s ease';
+    setTimeout(() => win.style.animation = '', 400);
+    document.querySelector('.warning-text').innerHTML =
+      '⛔ <strong>WARNING:</strong> Ignoring this threat will leave your computer <strong>severely compromised</strong>. Your passwords and files are actively being stolen. Click <strong>"Remove Threats Now"</strong> immediately!';
+    document.querySelector('.warning-text').style.background = '#fff0f0';
+    document.querySelector('.warning-text').style.borderColor = '#cc0000';
+  });
+
+  document.getElementById('removeBtn').addEventListener('click', () => {
+    document.querySelector('.alert-body').innerHTML = `
+      <div style="text-align:center; padding: 30px 20px;">
+        <div style="font-size:60px; margin-bottom:16px; animation: iconPulse 1s infinite;">🔄</div>
+        <div style="font-size:16px; font-weight:700; color:#0078D4; margin-bottom:8px;">Removing threats...</div>
+        <div style="font-size:12px; color:#555; margin-bottom:20px;">Please do not turn off your computer</div>
+        <div style="background:#e0e0e0; border-radius:2px; height:18px; overflow:hidden; border:1px solid #bbb;">
+          <div id="removeBar" style="height:100%; background:linear-gradient(to right,#0078D4,#29a8e8); width:0%; transition:width 0.5s;"></div>
+        </div>
+        <div style="font-size:11px; color:#888; margin-top:8px;" id="removeLabel">Initializing removal engine...</div>
+      </div>`;
+
+    const removeSteps = ['Quarantining Trojan:Win32/Emotet.gen!A...', 'Removing infected registry keys...', 'Cleaning browser data...', 'Deleting temporary malware files...', 'Restoring system integrity...', 'Done! All threats removed.'];
+    let rp = 0;
+    const ri = setInterval(() => {
+      rp += 18;
+      if (rp > 100) rp = 100;
+      document.getElementById('removeBar').style.width = rp + '%';
+      document.getElementById('removeLabel').textContent = removeSteps[Math.min(Math.floor(rp / 18), removeSteps.length - 1)];
+      if (rp >= 100) {
+        clearInterval(ri);
+        setTimeout(() => {
+          document.querySelector('.alert-body').innerHTML = `
+            <div style="text-align:center; padding:30px 20px;">
+              <div style="font-size:60px; margin-bottom:12px;">✅</div>
+              <div style="font-size:18px; font-weight:700; color:#107C10; margin-bottom:8px;">Your PC is now clean!</div>
+              <div style="font-size:12px; color:#555;">All 7 threats have been quarantined and removed successfully.</div>
+              <div style="margin-top:16px; font-size:11px; color:#888;">( Your friend is messing with you 😂 )</div>
+            </div>`;
+          document.querySelector('.alert-footer').innerHTML = `<button class="btn btn-primary" onclick="location.reload()" style="background:linear-gradient(to bottom,#107C10,#0a5e0a);border-color:#074007">Close</button>`;
+        }, 500);
+      }
+    }, 600);
+  });
+</script>
+</body>
+</html>
