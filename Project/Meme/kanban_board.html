@@ -1,0 +1,167 @@
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+.board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 1rem 0; }
+.col { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 12px; min-height: 300px; }
+.col-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.col-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+.col-count { font-size: 12px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 20px; padding: 1px 8px; color: var(--color-text-secondary); }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 12px; margin-bottom: 8px; cursor: grab; user-select: none; }
+.card:active { cursor: grabbing; }
+.card.dragging { opacity: 0.4; }
+.card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; }
+.card-label { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 20px; margin-bottom: 6px; }
+.card-meta { font-size: 12px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 6px; }
+.label-blue { background: #E6F1FB; color: #0C447C; }
+.label-green { background: #EAF3DE; color: #27500A; }
+.label-amber { background: #FAEEDA; color: #633806; }
+.label-purple { background: #EEEDFE; color: #3C3489; }
+.label-coral { background: #FAECE7; color: #712B13; }
+.col-drop { border: 1.5px dashed var(--color-border-secondary); border-radius: var(--border-radius-md); height: 56px; margin-bottom: 8px; display: none; }
+.col.drag-over .col-drop { display: block; }
+.add-btn { width: 100%; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--color-text-secondary); background: none; border: none; padding: 4px 0; cursor: pointer; margin-top: 4px; }
+.add-btn:hover { color: var(--color-text-primary); }
+.add-form { display: none; margin-top: 6px; }
+.add-form input { width: 100%; margin-bottom: 6px; font-size: 13px; }
+.add-form-row { display: flex; gap: 6px; }
+.add-form-row button { font-size: 13px; padding: 4px 10px; }
+.delete-btn { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--color-text-secondary); font-size: 16px; opacity: 0; transition: opacity 0.1s; padding: 0; }
+.card:hover .delete-btn { opacity: 1; }
+</style>
+
+<h2 class="sr-only">Interactive Kanban board with drag-and-drop support across three columns</h2>
+
+<div class="board" id="board">
+</div>
+
+<script>
+const state = {
+  cols: [
+    { id: 'todo', title: 'To do', cards: [
+      { id: 1, title: 'Research competitors', label: 'Research', labelClass: 'label-purple', assignee: 'AS' },
+      { id: 2, title: 'Write project brief', label: 'Docs', labelClass: 'label-blue', assignee: 'MR' },
+      { id: 3, title: 'Set up repo & CI', label: 'Dev', labelClass: 'label-green', assignee: 'JK' },
+    ]},
+    { id: 'inprogress', title: 'In progress', cards: [
+      { id: 4, title: 'Design system tokens', label: 'Design', labelClass: 'label-coral', assignee: 'AS' },
+      { id: 5, title: 'Auth flow implementation', label: 'Dev', labelClass: 'label-green', assignee: 'JK' },
+    ]},
+    { id: 'done', title: 'Done', cards: [
+      { id: 6, title: 'Kickoff meeting', label: 'Planning', labelClass: 'label-amber', assignee: 'MR' },
+      { id: 7, title: 'User interviews', label: 'Research', labelClass: 'label-purple', assignee: 'AS' },
+    ]}
+  ],
+  dragCard: null,
+  dragFromCol: null,
+  nextId: 8
+};
+
+function avatar(initials) {
+  return `<div style="width:20px;height:20px;border-radius:50%;background:var(--color-background-info);display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:var(--color-text-info);">${initials}</div>`;
+}
+
+function renderCard(card, colId) {
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.draggable = true;
+  el.dataset.id = card.id;
+  el.dataset.col = colId;
+  el.innerHTML = `
+    <div style="display:flex;align-items:flex-start;">
+      <div style="flex:1;">
+        <span class="card-label ${card.labelClass}">${card.label}</span>
+        <p class="card-title">${card.title}</p>
+        <div class="card-meta">${avatar(card.assignee)}<span>${card.assignee}</span></div>
+      </div>
+      <button class="delete-btn" data-id="${card.id}" data-col="${colId}" aria-label="Delete card"><i class="ti ti-x" aria-hidden="true"></i></button>
+    </div>`;
+  el.addEventListener('dragstart', onDragStart);
+  el.addEventListener('dragend', onDragEnd);
+  el.querySelector('.delete-btn').addEventListener('click', onDelete);
+  return el;
+}
+
+function renderBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  state.cols.forEach(col => {
+    const colEl = document.createElement('div');
+    colEl.className = 'col';
+    colEl.dataset.col = col.id;
+    colEl.innerHTML = `
+      <div class="col-header">
+        <span class="col-title">${col.title}</span>
+        <span class="col-count" id="count-${col.id}">${col.cards.length}</span>
+      </div>
+      <div class="col-drop" id="drop-${col.id}"></div>`;
+    col.cards.forEach(card => colEl.appendChild(renderCard(card, col.id)));
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-btn';
+    addBtn.innerHTML = `<i class="ti ti-plus" aria-hidden="true" style="font-size:16px;"></i> Add card`;
+    const addForm = document.createElement('div');
+    addForm.className = 'add-form';
+    addForm.innerHTML = `<input type="text" placeholder="Card title..." maxlength="60" /><div class="add-form-row"><button id="save-${col.id}">Add</button><button id="cancel-${col.id}">Cancel</button></div>`;
+    addBtn.addEventListener('click', () => { addForm.style.display = 'block'; addBtn.style.display = 'none'; addForm.querySelector('input').focus(); });
+    addForm.querySelector(`#cancel-${col.id}`).addEventListener('click', () => { addForm.style.display = 'none'; addBtn.style.display = 'flex'; addForm.querySelector('input').value = ''; });
+    addForm.querySelector(`#save-${col.id}`).addEventListener('click', () => {
+      const val = addForm.querySelector('input').value.trim();
+      if (!val) return;
+      const labels = [{l:'Dev',c:'label-green'},{l:'Design',c:'label-coral'},{l:'Docs',c:'label-blue'},{l:'Research',c:'label-purple'}];
+      const pick = labels[Math.floor(Math.random()*labels.length)];
+      const initials = ['AS','MR','JK'][Math.floor(Math.random()*3)];
+      col.cards.push({ id: state.nextId++, title: val, label: pick.l, labelClass: pick.c, assignee: initials });
+      addForm.querySelector('input').value = '';
+      addForm.style.display = 'none';
+      renderBoard();
+    });
+    addForm.querySelector('input').addEventListener('keydown', e => { if (e.key === 'Enter') addForm.querySelector(`#save-${col.id}`).click(); if (e.key === 'Escape') addForm.querySelector(`#cancel-${col.id}`).click(); });
+    colEl.appendChild(addBtn);
+    colEl.appendChild(addForm);
+    colEl.addEventListener('dragover', onDragOver);
+    colEl.addEventListener('dragleave', onDragLeave);
+    colEl.addEventListener('drop', onDrop);
+    board.appendChild(colEl);
+  });
+}
+
+function onDragStart(e) {
+  state.dragCard = parseInt(e.currentTarget.dataset.id);
+  state.dragFromCol = e.currentTarget.dataset.col;
+  e.currentTarget.classList.add('dragging');
+}
+function onDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.col').forEach(c => c.classList.remove('drag-over'));
+}
+function onDragOver(e) {
+  e.preventDefault();
+  const col = e.currentTarget.closest('.col');
+  if (col) col.classList.add('drag-over');
+}
+function onDragLeave(e) {
+  const col = e.currentTarget.closest('.col');
+  if (col && !col.contains(e.relatedTarget)) col.classList.remove('drag-over');
+}
+function onDrop(e) {
+  e.preventDefault();
+  const toColId = e.currentTarget.dataset.col;
+  const fromCol = state.cols.find(c => c.id === state.dragFromCol);
+  const toCol = state.cols.find(c => c.id === toColId);
+  if (!fromCol || !toCol || fromCol === toCol) { document.querySelectorAll('.col').forEach(c => c.classList.remove('drag-over')); renderBoard(); return; }
+  const idx = fromCol.cards.findIndex(c => c.id === state.dragCard);
+  if (idx > -1) { const [card] = fromCol.cards.splice(idx, 1); toCol.cards.push(card); }
+  state.dragCard = null; state.dragFromCol = null;
+  document.querySelectorAll('.col').forEach(c => c.classList.remove('drag-over'));
+  renderBoard();
+}
+function onDelete(e) {
+  const id = parseInt(e.currentTarget.dataset.id);
+  const colId = e.currentTarget.dataset.col;
+  const col = state.cols.find(c => c.id === colId);
+  if (col) col.cards = col.cards.filter(c => c.id !== id);
+  renderBoard();
+}
+
+renderBoard();
+</script>

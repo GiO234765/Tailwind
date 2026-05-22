@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACLEDA Bank Plc. - Leading Commercial Bank in Cambodia</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --red: #CC1C2F;
+    --red-dark: #A0101F;
+    --red-light: #F5E6E8;
+    --blue: #003882;
+    --blue-mid: #005BAA;
+    --blue-light: #E6EFF8;
+    --gold: #C8972A;
+    --gray-bg: #F4F5F7;
+    --gray-border: #DDE1E7;
+    --gray-text: #555F6E;
+    --text: #1A2332;
+    --white: #FFFFFF;
+  }
+  body { font-family: 'Noto Sans', sans-serif; color: var(--text); background: var(--white); font-size: 14px; line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--blue);
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+    padding: 6px 0;
+  }
+  .topbar .inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .topbar a { color: rgba(255,255,255,0.85); transition: color 0.2s; }
+  .topbar a:hover { color: #fff; }
+  .topbar-left { display: flex; gap: 20px; }
+  .topbar-right { display: flex; gap: 16px; align-items: center; }
+  .topbar-right a {
+    display: flex; align-items: center; gap: 5px;
+  }
+  .lang-btn {
+    background: rgba(255,255,255,0.15); border: none; color: #fff;
+    padding: 3px 10px; border-radius: 3px; font-size: 12px; cursor: pointer;
+    font-family: inherit;
+  }
+  .lang-btn:hover { background: rgba(255,255,255,0.25); }
+
+  /* HEADER */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-border);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; gap: 30px; height: 72px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .logo-icon {
+    width: 50px; height: 50px;
+    background: var(--red);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.5px;
+    line-height: 1.2; text-align: center;
+  }
+  .logo-text { line-height: 1.2; }
+  .logo-text .name { font-size: 18px; font-weight: 700; color: var(--blue); letter-spacing: 0.5px; }
+  .logo-text .tagline { font-size: 10px; color: var(--gray-text); letter-spacing: 0.8px; text-transform: uppercase; }
+
+  nav { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+  .nav-item {
+    position: relative;
+  }
+  .nav-item > a {
+    display: flex; align-items: center; gap: 4px;
+    padding: 8px 14px; border-radius: 4px;
+    font-size: 13.5px; font-weight: 500; color: var(--text);
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .nav-item > a:hover { background: var(--gray-bg); color: var(--blue); }
+  .nav-item > a .arrow { font-size: 10px; opacity: 0.6; }
+  .nav-item:hover .dropdown { display: block; }
+  .dropdown {
+    display: none;
+    position: absolute; top: 100%; left: 0;
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    z-index: 200;
+    overflow: hidden;
+  }
+  .dropdown a {
+    display: block; padding: 10px 16px;
+    font-size: 13px; color: var(--text);
+    border-bottom: 1px solid var(--gray-border);
+    transition: background 0.15s;
+  }
+  .dropdown a:last-child { border-bottom: none; }
+  .dropdown a:hover { background: var(--blue-light); color: var(--blue); }
+
+  .header-cta {
+    background: var(--red); color: #fff;
+    padding: 9px 18px; border-radius: 5px;
+    font-size: 13px; font-weight: 600;
+    transition: background 0.2s;
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+  .header-cta:hover { background: var(--red-dark); color: #fff; }
+
+  /* HERO SLIDER */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    height: 460px;
+    background: var(--blue);
+  }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; align-items: center;
+    opacity: 0; transition: opacity 0.8s ease;
+    padding: 0;
+  }
+  .slide.active { opacity: 1; }
+  .slide-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+  }
+  .slide-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(0,30,80,0.82) 0%, rgba(0,30,80,0.3) 65%, transparent 100%);
+  }
+  .slide-content {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    width: 100%;
+  }
+  .slide-tag {
+    display: inline-block;
+    background: var(--gold); color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 3px;
+    margin-bottom: 16px;
+  }
+  .slide-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 38px; font-weight: 700; color: #fff;
+    line-height: 1.25; max-width: 520px;
+    margin-bottom: 16px;
+  }
+  .slide-sub {
+    font-size: 15px; color: rgba(255,255,255,0.8);
+    max-width: 420px; margin-bottom: 28px; line-height: 1.6;
+  }
+  .slide-btns { display: flex; gap: 12px; }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    padding: 12px 26px; border-radius: 5px;
+    font-size: 14px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--red-dark); }
+  .btn-outline {
+    background: rgba(255,255,255,0.12); color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 12px 26px; border-radius: 5px;
+    font-size: 14px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.22); }
+
+  /* Slide nav dots */
+  .slide-dots {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 10;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.4); cursor: pointer;
+    transition: background 0.2s, width 0.2s;
+  }
+  .dot.active { background: #fff; width: 22px; border-radius: 4px; }
+
+  /* QUICK ACCESS */
+  .quick-access {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-border);
+    position: relative; z-index: 5;
+  }
+  .quick-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; overflow-x: auto;
+  }
+  .quick-item {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 18px 24px;
+    border-right: 1px solid var(--gray-border);
+    cursor: pointer;
+    transition: background 0.15s;
+    min-width: 120px; flex: 1;
+    text-align: center;
+  }
+  .quick-item:first-child { border-left: 1px solid var(--gray-border); }
+  .quick-item:hover { background: var(--blue-light); }
+  .quick-icon {
+    width: 44px; height: 44px;
+    background: var(--blue-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue); font-size: 20px;
+    transition: background 0.15s;
+  }
+  .quick-item:hover .quick-icon { background: var(--blue); color: #fff; }
+  .quick-label { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3; }
+
+  /* EXCHANGE RATE BAR */
+  .rate-bar {
+    background: var(--blue);
+    color: #fff;
+    padding: 10px 0;
+    overflow: hidden;
+  }
+  .rate-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; gap: 30px;
+  }
+  .rate-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; opacity: 0.7;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .rates { display: flex; gap: 24px; flex-wrap: wrap; }
+  .rate-item { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+  .rate-currency { font-weight: 700; opacity: 0.7; font-size: 11px; }
+  .rate-buy { color: #6EE7B7; }
+  .rate-sell { color: #FCA5A5; }
+  .rate-sep { opacity: 0.3; }
+
+  /* PRODUCTS SECTION */
+  .section { padding: 60px 0; }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .section-header { text-align: center; margin-bottom: 40px; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 30px; font-weight: 700; color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section-sub { font-size: 15px; color: var(--gray-text); max-width: 580px; margin: 0 auto; }
+
+  /* Product tabs */
+  .prod-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--gray-border); margin-bottom: 36px; }
+  .prod-tab {
+    padding: 12px 24px; font-size: 14px; font-weight: 500;
+    color: var(--gray-text); cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+  .prod-tab.active { color: var(--blue); border-color: var(--blue); font-weight: 600; }
+  .prod-tab:hover { color: var(--blue); }
+
+  .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .prod-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 8px; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    background: var(--white);
+  }
+  .prod-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.09); }
+  .prod-card-top {
+    height: 110px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .prod-card-body { padding: 16px; }
+  .prod-card-title { font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+  .prod-card-desc { font-size: 12px; color: var(--gray-text); line-height: 1.5; margin-bottom: 12px; }
+  .prod-card-link { font-size: 12px; font-weight: 600; color: var(--red); }
+
+  /* STATS STRIP */
+  .stats-strip { background: var(--blue); padding: 50px 0; }
+  .stats-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .stat-item {
+    text-align: center; padding: 20px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Noto Serif', serif;
+    font-size: 40px; font-weight: 700; color: var(--white);
+    line-height: 1;
+  }
+  .stat-unit { font-size: 18px; color: var(--gold); font-weight: 700; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px; letter-spacing: 0.5px; }
+
+  /* NEWS */
+  .news-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .news-card {
+    border: 1px solid var(--gray-border); border-radius: 8px; overflow: hidden;
+    transition: box-shadow 0.2s;
+    background: var(--white);
+  }
+  .news-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+  .news-img {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+  }
+  .news-body { padding: 16px; }
+  .news-cat {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 8px;
+  }
+  .news-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .news-date { font-size: 11px; color: var(--gray-text); }
+
+  /* MOBILE APP */
+  .app-section { background: var(--blue-light); }
+  .app-inner { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+  .app-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .app-content .section-label { text-align: left; }
+  .app-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 30px; font-weight: 700; color: var(--blue);
+    margin-bottom: 16px; line-height: 1.3;
+  }
+  .app-desc { font-size: 14px; color: var(--gray-text); margin-bottom: 28px; line-height: 1.7; }
+  .app-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .store-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--blue); color: #fff;
+    padding: 10px 18px; border-radius: 8px;
+    font-size: 13px; transition: background 0.2s;
+  }
+  .store-btn:hover { background: var(--blue-mid); }
+  .store-btn .store-icon { font-size: 22px; }
+  .store-btn .store-label { line-height: 1.2; }
+  .store-btn .store-small { font-size: 10px; opacity: 0.75; }
+  .store-btn .store-name { font-size: 14px; font-weight: 700; }
+
+  .app-mockup {
+    display: flex; justify-content: center; align-items: flex-end; gap: 16px;
+  }
+  .phone {
+    width: 160px; height: 300px;
+    background: var(--blue);
+    border-radius: 24px;
+    border: 6px solid rgba(255,255,255,0.6);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #fff; font-size: 13px; text-align: center;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0,56,130,0.25);
+  }
+  .phone:last-child { height: 260px; margin-bottom: 0; }
+  .phone-logo { font-size: 40px; margin-bottom: 12px; }
+  .phone-text { font-size: 12px; opacity: 0.8; line-height: 1.4; }
+
+  /* BRANCHES MAP */
+  .branch-section { background: var(--gray-bg); }
+  .branch-inner {
+    max-width: 1200px; margin: 0 auto; padding: 60px 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .branch-map {
+    background: var(--blue-light); border-radius: 12px;
+    height: 300px; display: flex; align-items: center; justify-content: center;
+    font-size: 80px; color: var(--blue); position: relative; overflow: hidden;
+  }
+  .branch-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--red) 2px, transparent 2px);
+    background-size: 40px 40px;
+    opacity: 0.08;
+  }
+  .branch-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 30px; font-weight: 700; color: var(--blue); margin-bottom: 16px;
+  }
+  .branch-desc { font-size: 14px; color: var(--gray-text); margin-bottom: 28px; line-height: 1.7; }
+  .branch-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .branch-stat {
+    background: var(--white); border-radius: 8px; padding: 16px;
+    border: 1px solid var(--gray-border);
+  }
+  .branch-stat-num { font-size: 28px; font-weight: 700; color: var(--blue); }
+  .branch-stat-label { font-size: 12px; color: var(--gray-text); }
+  .btn-red {
+    display: inline-block;
+    background: var(--red); color: #fff;
+    padding: 12px 26px; border-radius: 5px;
+    font-size: 14px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-red:hover { background: var(--red-dark); }
+
+  /* FOOTER */
+  footer { background: #0D1F3C; color: rgba(255,255,255,0.7); font-size: 13px; }
+  .footer-top { padding: 50px 0 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px;
+  }
+  .footer-brand .logo-icon { background: var(--red); color: #fff; }
+  .footer-brand .name { color: #fff; }
+  .footer-brand .tagline { color: rgba(255,255,255,0.5); }
+  .footer-brand p { margin-top: 16px; font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.55); }
+  .footer-heading { color: #fff; font-weight: 700; font-size: 13px; margin-bottom: 16px; letter-spacing: 0.5px; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.6); transition: color 0.2s; font-size: 12px; }
+  .footer-links a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding: 20px 20px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); }
+  .footer-social { display: flex; gap: 12px; }
+  .social-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7); font-size: 14px;
+    transition: background 0.2s;
+  }
+  .social-btn:hover { background: var(--red); color: #fff; }
+
+  /* ANNOUNCE STRIP */
+  .announce { background: var(--red); color: #fff; padding: 8px 0; font-size: 12px; }
+  .announce-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .announce-badge { background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 3px; font-weight: 700; font-size: 10px; }
+
+  /* SCROLL ANIMATION */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE STRIP -->
+<div class="announce">
+  <div class="announce-inner">
+    <span class="announce-badge">NEW</span>
+    <span>ACLEDA Mobile Banking — Now available with biometric login and instant transfers. <a href="#" style="color:#fff;font-weight:700;text-decoration:underline;">Download now →</a></span>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="inner">
+    <div class="topbar-left">
+      <a href="#">About Us</a>
+      <a href="#">Investor Relations</a>
+      <a href="#">Career</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="topbar-right">
+      <a href="#">🔒 Internet Banking</a>
+      <a href="#">📱 Mobile Banking</a>
+      <button class="lang-btn">KH | EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">ACLEDA<br>BANK</div>
+      <div class="logo-text">
+        <div class="name">ACLEDA Bank</div>
+        <div class="tagline">Plc. — Leading Commercial Bank</div>
+      </div>
+    </a>
+    <nav>
+      <div class="nav-item">
+        <a href="#">Personal <span class="arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#">Accounts & Savings</a>
+          <a href="#">Loans & Credit</a>
+          <a href="#">Cards</a>
+          <a href="#">Insurance</a>
+          <a href="#">Mobile Banking</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Business <span class="arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#">Business Accounts</a>
+          <a href="#">Trade Finance</a>
+          <a href="#">Business Loans</a>
+          <a href="#">Payroll Services</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Corporate <span class="arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#">Corporate Banking</a>
+          <a href="#">Treasury Services</a>
+          <a href="#">Project Finance</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Rates <span class="arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#">Exchange Rates</a>
+          <a href="#">Deposit Rates</a>
+          <a href="#">Loan Rates</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Network</a>
+      </div>
+      <a href="#" class="header-cta">Open Account</a>
+    </nav>
+  </div>
+</header>
+
+<!-- EXCHANGE RATE BAR -->
+<div class="rate-bar">
+  <div class="rate-inner">
+    <span class="rate-title">Exchange Rates</span>
+    <div class="rates">
+      <div class="rate-item">
+        <span class="rate-currency">USD/KHR</span>
+        <span class="rate-buy">Buy: 4,100</span>
+        <span class="rate-sep">|</span>
+        <span class="rate-sell">Sell: 4,105</span>
+      </div>
+      <div class="rate-item">
+        <span class="rate-currency">THB/KHR</span>
+        <span class="rate-buy">Buy: 117.25</span>
+        <span class="rate-sep">|</span>
+        <span class="rate-sell">Sell: 119.50</span>
+      </div>
+      <div class="rate-item">
+        <span class="rate-currency">EUR/KHR</span>
+        <span class="rate-buy">Buy: 4,420</span>
+        <span class="rate-sep">|</span>
+        <span class="rate-sell">Sell: 4,470</span>
+      </div>
+      <div class="rate-item">
+        <span class="rate-currency">CNY/KHR</span>
+        <span class="rate-buy">Buy: 562</span>
+        <span class="rate-sep">|</span>
+        <span class="rate-sell">Sell: 570</span>
+      </div>
+      <div class="rate-item">
+        <span class="rate-currency">SGD/KHR</span>
+        <span class="rate-buy">Buy: 3,020</span>
+        <span class="rate-sep">|</span>
+        <span class="rate-sell">Sell: 3,065</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO SLIDER -->
+<div class="hero">
+  <div class="slide active" id="slide-0">
+    <div class="slide-bg" style="background: linear-gradient(135deg, #001f4d 0%, #003882 50%, #C8972A 100%);"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Featured Offer</div>
+      <div class="slide-title">Cambodia's Most Trusted Commercial Bank</div>
+      <div class="slide-sub">Serving over 3 million customers across Cambodia with world-class banking solutions and digital services.</div>
+      <div class="slide-btns">
+        <a href="#" class="btn-primary">Open an Account</a>
+        <a href="#" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide" id="slide-1">
+    <div class="slide-bg" style="background: linear-gradient(135deg, #1a0a00 0%, #8B1A1A 50%, #003882 100%);"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Digital Banking</div>
+      <div class="slide-title">Bank Anywhere, Anytime with ACLEDA Mobile</div>
+      <div class="slide-sub">Enjoy fast, secure, and convenient banking from your smartphone. Transfer money, pay bills, and more.</div>
+      <div class="slide-btns">
+        <a href="#" class="btn-primary">Download App</a>
+        <a href="#" class="btn-outline">See Features</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide" id="slide-2">
+    <div class="slide-bg" style="background: linear-gradient(135deg, #0a1a00 0%, #1a4a00 50%, #003882 100%);"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Business Solutions</div>
+      <div class="slide-title">Growing Your Business with Smart Finance</div>
+      <div class="slide-sub">Flexible business loans, trade finance, and tailored corporate banking solutions for enterprises of all sizes.</div>
+      <div class="slide-btns">
+        <a href="#" class="btn-primary">Business Banking</a>
+        <a href="#" class="btn-outline">Apply for Loan</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide-dots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+  </div>
+</div>
+
+<!-- QUICK ACCESS -->
+<div class="quick-access">
+  <div class="quick-inner">
+    <div class="quick-item">
+      <div class="quick-icon">💳</div>
+      <div class="quick-label">Open Account</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">🏠</div>
+      <div class="quick-label">Apply for Loan</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">💸</div>
+      <div class="quick-label">Send Money</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">📱</div>
+      <div class="quick-label">Mobile Banking</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">💱</div>
+      <div class="quick-label">Exchange Rates</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">📍</div>
+      <div class="quick-label">Find Branch / ATM</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">🔒</div>
+      <div class="quick-label">Internet Banking</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-icon">📞</div>
+      <div class="quick-label">Contact Us</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS SECTION -->
+<div class="section">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">Our Services</div>
+      <div class="section-title">Banking Solutions for Everyone</div>
+      <div class="section-sub">From personal savings to corporate financing, ACLEDA offers comprehensive financial services tailored to your needs.</div>
+    </div>
+    <div class="prod-tabs">
+      <div class="prod-tab active">Personal</div>
+      <div class="prod-tab">Business</div>
+      <div class="prod-tab">Corporate</div>
+      <div class="prod-tab">Digital</div>
+    </div>
+    <div class="prod-grid fade-in">
+      <div class="prod-card">
+        <div class="prod-card-top" style="background:#E6EFF8;">💰</div>
+        <div class="prod-card-body">
+          <div class="prod-card-title">Savings Account</div>
+          <div class="prod-card-desc">Earn competitive interest on your savings with flexible deposit options in KHR, USD, and THB.</div>
+          <div class="prod-card-link">Learn More →</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-top" style="background:#F5E6E8;">🏠</div>
+        <div class="prod-card-body">
+          <div class="prod-card-title">Home Loan</div>
+          <div class="prod-card-desc">Make your dream home a reality with competitive rates and flexible repayment terms up to 20 years.</div>
+          <div class="prod-card-link">Learn More →</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-top" style="background:#FFF8E6;">💳</div>
+        <div class="prod-card-body">
+          <div class="prod-card-title">ACLEDA Card</div>
+          <div class="prod-card-desc">Debit and prepaid cards accepted at millions of locations worldwide with zero annual fees.</div>
+          <div class="prod-card-link">Learn More →</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-top" style="background:#E6F5EE;">📈</div>
+        <div class="prod-card-body">
+          <div class="prod-card-title">Fixed Deposit</div>
+          <div class="prod-card-desc">Maximize returns with guaranteed interest rates on fixed-term deposits from 1 month to 5 years.</div>
+          <div class="prod-card-link">Learn More →</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-top" style="background:#F0E6F5;">🛡️</div>
+        <div class="prod-card-body">
+          <div class="prod-card-title">Bancassurance</div>
+          <div class="prod-card-desc">Protect what matters most with life and general insurance products available at all branches.</div>
+          <div class="prod-card-link">Learn More →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stats-grid fade-in">
+      <div class="stat-item">
+        <div class="stat-num">30<span class="stat-unit">+</span></div>
+        <div class="stat-label">Years of Service</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<span class="stat-unit">M+</span></div>
+        <div class="stat-label">Active Customers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">260<span class="stat-unit">+</span></div>
+        <div class="stat-label">Branches & Offices</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">700<span class="stat-unit">+</span></div>
+        <div class="stat-label">ATMs Nationwide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE APP -->
+<div class="app-section section">
+  <div class="app-inner">
+    <div class="app-layout fade-in">
+      <div class="app-content">
+        <div class="section-label">Digital Banking</div>
+        <div class="app-title">Manage Your Money on the Go</div>
+        <div class="app-desc">The ACLEDA Mobile Banking app gives you full control of your finances 24/7. Check balances, transfer funds, pay bills, buy airtime, and more — all from the palm of your hand with enterprise-grade security.</div>
+        <div class="app-btns">
+          <a href="#" class="store-btn">
+            <span class="store-icon">🍎</span>
+            <span class="store-label">
+              <span class="store-small">Download on the</span><br>
+              <span class="store-name">App Store</span>
+            </span>
+          </a>
+          <a href="#" class="store-btn">
+            <span class="store-icon">▶</span>
+            <span class="store-label">
+              <span class="store-small">Get it on</span><br>
+              <span class="store-name">Google Play</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="app-mockup">
+        <div class="phone">
+          <div class="phone-logo">🏦</div>
+          <div style="font-weight:700;margin-bottom:8px;">ACLEDA Mobile</div>
+          <div class="phone-text">Check Balance<br>Transfer<br>Pay Bills<br>QR Code</div>
+        </div>
+        <div class="phone" style="background:var(--red);">
+          <div class="phone-logo">💸</div>
+          <div style="font-weight:700;margin-bottom:8px;">Quick Pay</div>
+          <div class="phone-text">Scan & Pay<br>Send Money<br>Top Up</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRANCH NETWORK -->
+<div class="branch-section">
+  <div class="branch-inner fade-in">
+    <div class="branch-map">
+      <div class="branch-dots"></div>
+      <span style="position:relative;z-index:1;">🗺️</span>
+    </div>
+    <div>
+      <div class="section-label">Our Network</div>
+      <div class="branch-title">Banking Close to You — Everywhere in Cambodia</div>
+      <div class="branch-desc">With the largest branch and ATM network in Cambodia, ACLEDA Bank is always nearby. Find your nearest branch, ATM, or authorized agent easily.</div>
+      <div class="branch-stats">
+        <div class="branch-stat">
+          <div class="branch-stat-num">266</div>
+          <div class="branch-stat-label">Branches & Offices</div>
+        </div>
+        <div class="branch-stat">
+          <div class="branch-stat-num">832</div>
+          <div class="branch-stat-label">ATMs Nationwide</div>
+        </div>
+        <div class="branch-stat">
+          <div class="branch-stat-num">25</div>
+          <div class="branch-stat-label">Provinces Covered</div>
+        </div>
+        <div class="branch-stat">
+          <div class="branch-stat-num">24/7</div>
+          <div class="branch-stat-label">ATM Availability</div>
+        </div>
+      </div>
+      <a href="#" class="btn-red">Find Branch / ATM</a>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS -->
+<div class="section">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">Latest Updates</div>
+      <div class="section-title">News & Announcements</div>
+    </div>
+    <div class="news-grid fade-in">
+      <div class="news-card">
+        <div class="news-img" style="background:#E6EFF8;">📰</div>
+        <div class="news-body">
+          <div class="news-cat">Press Release</div>
+          <div class="news-title">ACLEDA Bank Reports Strong Financial Performance for FY2025</div>
+          <div class="news-date">May 15, 2026</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:#F5E6E8;">🏆</div>
+        <div class="news-body">
+          <div class="news-cat">Award</div>
+          <div class="news-title">Best Retail Bank Cambodia 2026 — Asian Banking & Finance Awards</div>
+          <div class="news-date">April 28, 2026</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:#E6F5EE;">📱</div>
+        <div class="news-body">
+          <div class="news-cat">Product Launch</div>
+          <div class="news-title">New ACLEDA Mobile Banking App v5.0 Launches with Biometric Security</div>
+          <div class="news-date">April 10, 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">ACLEDA<br>BANK</div>
+          <div class="logo-text">
+            <div class="name">ACLEDA Bank Plc.</div>
+            <div class="tagline">Leading Commercial Bank</div>
+          </div>
+        </div>
+        <p>ACLEDA Bank Plc. is Cambodia's leading commercial bank, offering a full range of financial services to individuals, SMEs, and corporations since 1993.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Personal</div>
+        <div class="footer-links">
+          <a href="#">Accounts & Savings</a>
+          <a href="#">Loans</a>
+          <a href="#">Cards</a>
+          <a href="#">Insurance</a>
+          <a href="#">Remittance</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Business</div>
+        <div class="footer-links">
+          <a href="#">Business Accounts</a>
+          <a href="#">Trade Finance</a>
+          <a href="#">Payroll</a>
+          <a href="#">Business Loans</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Digital</div>
+        <div class="footer-links">
+          <a href="#">Internet Banking</a>
+          <a href="#">Mobile Banking</a>
+          <a href="#">ACLEDA Pay</a>
+          <a href="#">QR Payment</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Help</div>
+        <div class="footer-links">
+          <a href="#">Contact Us</a>
+          <a href="#">Find Branch / ATM</a>
+          <a href="#">FAQ</a>
+          <a href="#">Security Tips</a>
+          <a href="#">Feedback</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 ACLEDA Bank Plc. All rights reserved. | Licensed by the National Bank of Cambodia | Member of Deposit Guarantee Scheme</div>
+      <div class="footer-social">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">▶</a>
+        <a href="#" class="social-btn">📷</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:14px 20px;">
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="#" style="color:rgba(255,255,255,0.4);font-size:11px;">Privacy Policy</a>
+      <a href="#" style="color:rgba(255,255,255,0.4);font-size:11px;">Terms & Conditions</a>
+      <a href="#" style="color:rgba(255,255,255,0.4);font-size:11px;">Cookie Policy</a>
+      <a href="#" style="color:rgba(255,255,255,0.4);font-size:11px;">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function goSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = n;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  setInterval(() => { goSlide((currentSlide + 1) % slides.length); }, 5000);
+
+  // Product tabs
+  document.querySelectorAll('.prod-tab').forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.prod-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Card Game</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#1e1e2f;
+    color:white;
+}
+
+.game-container{
+    text-align:center;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+    font-size:20px;
+}
+
+.game-board{
+    display:grid;
+    grid-template-columns:repeat(4,100px);
+    gap:15px;
+    justify-content:center;
+}
+
+.card{
+    width:100px;
+    height:120px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:0.5s;
+    cursor:pointer;
+}
+
+.card.flip{
+    transform:rotateY(180deg);
+}
+
+.front,
+.back{
+    width:100%;
+    height:100%;
+    position:absolute;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    backface-visibility:hidden;
+}
+
+.front{
+    background:white;
+    color:black;
+    transform:rotateY(180deg);
+}
+
+.back{
+    background:#4a90e2;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#ff6b6b;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+</style>
+</head>
+<body>
+
+<div class="game-container">
+
+    <h1>Memory Card Game</h1>
+
+    <div class="stats">
+        <div>Moves: <span id="moves">0</span></div>
+        <div>Time: <span id="time">0</span>s</div>
+    </div>
+
+    <div class="game-board" id="gameBoard"></div>
+
+    <button onclick="restartGame()">Restart</button>
+
+</div>
+
+<script>
+
+const emojis = ["🍎","🍌","🍇","🍉","🍒","🥝","🍍","🥥"];
+
+let cards = [...emojis, ...emojis];
+
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+
+let moves = 0;
+let matched = 0;
+
+const gameBoard = document.getElementById("gameBoard");
+const movesText = document.getElementById("moves");
+const timeText = document.getElementById("time");
+
+let seconds = 0;
+
+setInterval(() => {
+    seconds++;
+    timeText.innerText = seconds;
+}, 1000);
+
+function shuffleCards(){
+
+    cards.sort(() => Math.random() - 0.5);
+
+}
+
+function createBoard(){
+
+    gameBoard.innerHTML = "";
+
+    cards.forEach((emoji) => {
+
+        const card = document.createElement("div");
+
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <div class="front">${emoji}</div>
+            <div class="back">?</div>
+        `;
+
+        card.addEventListener("click", flipCard);
+
+        gameBoard.appendChild(card);
+
+    });
+
+}
+
+function flipCard(){
+
+    if(lockBoard) return;
+
+    if(this === firstCard) return;
+
+    this.classList.add("flip");
+
+    if(!firstCard){
+
+        firstCard = this;
+        return;
+
+    }
+
+    secondCard = this;
+
+    moves++;
+    movesText.innerText = moves;
+
+    checkMatch();
+
+}
+
+function checkMatch(){
+
+    const firstEmoji =
+        firstCard.querySelector(".front").textContent;
+
+    const secondEmoji =
+        secondCard.querySelector(".front").textContent;
+
+    if(firstEmoji === secondEmoji){
+
+        matched++;
+
+        firstCard.removeEventListener("click", flipCard);
+        secondCard.removeEventListener("click", flipCard);
+
+        resetTurn();
+
+        if(matched === emojis.length){
+
+            setTimeout(() => {
+                alert("🎉 You Win!");
+            }, 500);
+
+        }
+
+    }
+    else{
+
+        lockBoard = true;
+
+        setTimeout(() => {
+
+            firstCard.classList.remove("flip");
+            secondCard.classList.remove("flip");
+
+            resetTurn();
+
+        }, 1000);
+
+    }
+
+}
+
+function resetTurn(){
+
+    [firstCard, secondCard] = [null, null];
+
+    lockBoard = false;
+
+}
+
+function restartGame(){
+
+    location.reload();
+
+}
+
+shuffleCards();
+createBoard();
+
+</script>
+
+</body>
+</html>
